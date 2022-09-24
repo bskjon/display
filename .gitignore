@@ -1,15 +1,15 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
+/Web/dist
+/Web/tmp
+/Web/out-tsc
+/Web/bazel-out
 
 # Node
-/node_modules
-npm-debug.log
-yarn-error.log
+/Web/node_modules
+/Web/npm-debug.log
+/Web/yarn-error.log
 
 # IDEs and editors
 .idea/
@@ -21,21 +21,23 @@ yarn-error.log
 *.sublime-workspace
 
 # Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+ .vscode/*
+ !.vscode/settings.json
+ !.vscode/tasks.json
+ !.vscode/launch.json
+ !.vscode/extensions.json
+ .history/*
+
+
 
 # Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
+/Web/.angular/cache
+/Web/.sass-cache/
+/Web/connect.lock
+/Web/coverage
+/Web/libpeerconnection.log
+/Webtestem.log
+/Web/typings
 
 # System files
 .DS_Store

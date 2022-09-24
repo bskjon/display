@@ -1,0 +1,29 @@
+ngb-carousel {
+    height: 100vh;
+    width: 100vw;
+
+    ::ng-deep .carousel-inner {
+        height: 100vh;
+        .carousel-item {
+            height: 100vh;
+            app-html-viewer {
+                height: 100vh;
+            }
+        }
+    }
+
+    ::ng-deep .carousel-indicators {
+        margin-bottom: 0px;
+        button {         
+            border-bottom: 2.5px solid transparent;
+            border-top: 2.5px solid transparent;
+        }
+    }
+    
+    
+}
+
+
+
+
+

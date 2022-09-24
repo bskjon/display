@@ -1,0 +1,13 @@
+<ngb-carousel [showNavigationIndicators]="true" [showNavigationArrows]="false" [interval]="5000" [pauseOnFocus]="false" [pauseOnHover]="false" [interval]="10000">
+        <ng-container *ngFor="let url of urlList | async">
+                <ng-template ngbSlide>
+                        <app-html-viewer [url]="url"></app-html-viewer>
+                </ng-template>
+        </ng-container>
+        
+</ngb-carousel>
+
+<!--
+https://ng-bootstrap.github.io/#/components/carousel/examples
+https://ng-bootstrap.github.io/#/components/carousel/examples
+-->
