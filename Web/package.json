@@ -1,13 +1,14 @@
 {
-  "name": "display",
-  "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:ngssc": "ng run display:ngsscbuild:production"
   },
+  "name": "display",
+  "version": "0.0.0",
   "private": true,
   "dependencies": {
     "@angular/animations": "^14.2.3",
@@ -23,6 +24,7 @@
     "@popperjs/core": "^2.11.6",
     "@rxjs/rx": "^4.1.0",
     "angular-responsive-carousel2": "^0.0.6",
+    "angular-server-side-configuration": "^14.0.1",
     "bootstrap": "^5.2.1",
     "crypto": "^1.0.1",
     "net": "^1.0.2",

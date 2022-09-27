@@ -29,6 +29,8 @@
  .history/*
 
 
+# Python
+/Gateway/__pycache__
 
 # Miscellaneous
 /Web/.angular/cache

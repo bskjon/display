@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { AppService } from 'src/app/app.service';
@@ -11,27 +12,14 @@ import { AppService } from 'src/app/app.service';
 export class DisplayPageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(NgbCarousel) carusel!: NgbCarousel;
 
-  protected urlList: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
-
   protected subscriptions: Subscription[] = [];
 
   constructor(
+    private router: Router,
     public appService: AppService
-  ) { 
-    this.appService.urlRef.subscribe(newUrl => {
-      newUrl.forEach(url => {
-        console.log("New url: " + url.url)
-      })
-    })
-
-  }
+  ) {   }
 
   ngOnInit(): void {
-
-    this.urlList.next([
-      "https://www.home-assistant.io/",
-      "https://iktdev.no"
-    ])
   }
 
   ngAfterViewInit(): void {
@@ -40,6 +28,9 @@ export class DisplayPageComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log(this.carusel.interval)
     });
     this.subscriptions.push(cycleIntervalChanged)
+    if (this.appService.urlRef.getValue().length == 0) {
+      this.router.navigate([''])
+    }
   }
 
   ngOnDestroy(): void {

@@ -8,23 +8,29 @@ import { Url } from './models/url.model';
 })
 export class SocketService implements OnInit {
 
-  public url = this.socket.fromEvent<Url[]>('set url');
+  public urls = this.socket.fromEvent<Url[]>('set urls');
+  public ip = this.socket.fromEvent<string>('ip obtained');
+  public url = this.socket.fromEvent<Url>('add url');
 
   // https://www.digitalocean.com/community/tutorials/angular-socket-io#step-2-installing-angular-cli-and-creating-the-client-app
   constructor(
     private socket: Socket
   ) { 
-    this.socket.on('add url', (data) =>  {
-      console.log(data)
+    this.socket.on('connect', () => {
+      console.info("Connected to socket!");
+    })
+    this.socket.on('disconnect', () => {
+      console.info("Disconnected");
+      setTimeout(() => {
+        this.socket.connect()
+      }, 1000);
     });
   }
 
+
+
   ngOnInit(): void {
-      this.socket.on('disconnect', () => {
-        setTimeout(() => {
-          this.socket.connect()
-        }, 1000);
-      });
+      
   }
   
 
