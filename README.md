@@ -1,9 +1,7 @@
-<p style="font-size: 5em;">🚧 Work in progress</p>
+# 🚧 Work in progress
 
-<div style="display: flex; flex-wrap: wrap;">
-    <img src="Web/src/assets/display.svg" style="height: 250px;" />
-    <p style="font-size: 5em; margin: auto; margin-left: 0px;">Display</p>
-</div>
+<img src="Web/src/assets/display.svg" style="height: 250px;" />
+
 
 ## What is "Display"
 Display is a project intended to simply display websites in a kiosk mode.
