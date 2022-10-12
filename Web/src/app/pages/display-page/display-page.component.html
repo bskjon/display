@@ -1,4 +1,4 @@
-<ngb-carousel [showNavigationIndicators]="true" [showNavigationArrows]="false" [interval]="5000" [pauseOnFocus]="false" [pauseOnHover]="false" [interval]="10000">
+<ngb-carousel [showNavigationIndicators]="true" [showNavigationArrows]="false" [interval]="10000" [pauseOnFocus]="false" [pauseOnHover]="false">
         <ng-container *ngFor="let view of appService.urlRef | async">
                 <ng-template ngbSlide>
                         <app-html-viewer [url]="view.url"></app-html-viewer>

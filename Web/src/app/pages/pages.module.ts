@@ -7,6 +7,7 @@ import { OfflinePageComponent } from './offline-page/offline-page.component';
 import { ComponentsModule } from '../components/components.module';
 import { IvyCarouselModule } from 'angular-responsive-carousel2';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConnectingPageComponent } from './connecting-page/connecting-page.component';
 
 
 
@@ -16,6 +17,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     DefaultPageComponent,
     DisplayPageComponent,
     HelloPageComponent,
+    ConnectingPageComponent,
   ],
   imports: [
     CommonModule,

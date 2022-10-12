@@ -1,5 +1,7 @@
+from typing import Optional
 import netifaces
 import sys
+import os
 
 class IP:
     def get_ip(self) -> str:
@@ -55,6 +57,40 @@ class IP:
             return ifaces[0]["ip"]
         else:
             return None
+        
+    def get_name_by_ip(self, ipToLookUp: str) -> Optional[str]:
+        for iface in netifaces.interfaces():
+            inets = netifaces.ifaddresses(iface).setdefault(netifaces.AF_INET, None)
+            if (inets is None):
+                continue
+            for address in inets:
+                if ('addr' not in address):
+                    continue
+                ip: str = address['addr']
+                if (ip == ipToLookUp):
+                    return iface
+        return None
+                    
+        
+    def get_gateway(self) -> Optional[str]:
+        obtained_ip: Optional[str]
+        if os.environ.get('HOST_IP') is None:
+            obtained_ip =  self.get_ip()
+        else:
+            obtained_ip = os.environ.get('HOST_IP')
+        
+        if (obtained_ip is None):
+            return None
+        name = self.get_name_by_ip(ipToLookUp=obtained_ip)       
+        
+        
+        for gw in netifaces.gateways()[netifaces.AF_INET]:
+            if len(gw) == 3 and gw[1] == name:
+                return gw[0]
+            else:
+                continue
+        return None
+        
         
 if __name__ == '__main__':
     ip = IP()

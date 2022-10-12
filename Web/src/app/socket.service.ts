@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
+import { Connectivity } from './models/connectivity.enum';
 import { Url } from './models/url.model';
 
 
@@ -11,6 +12,9 @@ export class SocketService implements OnInit {
   public urls = this.socket.fromEvent<Url[]>('set urls');
   public ip = this.socket.fromEvent<string>('ip obtained');
   public url = this.socket.fromEvent<Url>('add url');
+  public interval = this.socket.fromEvent<number>('set interval');
+
+  public connectivity = this.socket.fromEvent<Connectivity>("set connectivity");
 
   // https://www.digitalocean.com/community/tutorials/angular-socket-io#step-2-installing-angular-cli-and-creating-the-client-app
   constructor(

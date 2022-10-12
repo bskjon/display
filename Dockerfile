@@ -35,6 +35,8 @@ COPY build/docker-entrypoint.d/ /docker-entrypoint.d/
 # RUN chmod +x /docker-entrypoint.d/ngssc.sh
 RUN chmod +x /docker-entrypoint.d/01-websocket.sh
 
+ENV AM_I_IN_A_DOCKER_CONTAINER True
+
 EXPOSE 5000
 EXPOSE 80
 
