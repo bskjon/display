@@ -63,31 +63,12 @@ jobs:
       - name: Execute With Ngssc
         run: |
           ng run display:ngsscbuild:production
-      
-      - name: Run LS
-        run: |
-          ls -la ./
-          ls -la ./dist
-          ls -la ./dist/display
-        shell: bash
-      
-      - name: Run Zip
-        working-directory: ./Web
-        run: |
-          zip -r web-test.zip ./dist/display
-        shell: bash
-        
-      - name: Upload Test Web Zip Build
-        uses: actions/upload-artifact@v3.1.1
-        with:
-          name: web
-          path: ./web-test.zip
-      
+            
       - name: Upload Web Build
         uses: actions/upload-artifact@v3.1.1
         with:
           name: web
-          path: ./Web/dist/display/
+          path: ./Web/dist
           if-no-files-found: error
           
   dockerize:
@@ -112,7 +93,7 @@ jobs:
         uses: actions/download-artifact@v3.0.1
         with:
           name: web
-          path: ./dist/display/
+          path: ./dist
       
       - name: Docker Setup Buildx
         uses: docker/setup-buildx-action@v2.2.1
