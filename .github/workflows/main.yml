@@ -18,9 +18,7 @@ permissions:
 
 jobs:
   gradle-build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     
@@ -42,6 +40,8 @@ jobs:
       with: 
         name: backend
         path: ./Backend/build/libs/backend.jar
+        if-no-files-found: error
+        
   ng-build:
     runs-on: ubuntu-latest
     defaults:
@@ -63,12 +63,13 @@ jobs:
       - name: Execute With Ngssc
         run: |
           ng run display:ngsscbuild:production
-      
+            
       - name: Upload Web Build
         uses: actions/upload-artifact@v3.1.1
         with:
-          name: dist
-          path: ./dist
+          name: web
+          path: ./Web/dist/display
+          if-no-files-found: error
           
   dockerize:
     runs-on: ubuntu-latest
@@ -81,6 +82,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_TOKEN }}
+      
+      - name: Fetching docker file + extras
+        uses: actions/checkout@v3
     
       - name: Downloading Backend
         uses: actions/download-artifact@v3.0.1
@@ -91,13 +95,12 @@ jobs:
       - name: Downloading Web
         uses: actions/download-artifact@v3.0.1
         with:
-          name: dist
-          path: ./
+          name: web
+          path: ./dist/display
       
       - name: Docker Setup Buildx
         uses: docker/setup-buildx-action@v2.2.1
-        
+
       - name: Build the Docker image
         run: docker buildx build --push --platform=linux/amd64,linux/arm64,linux/arm/v7 -t bskjon/display:latest .
-     
     
