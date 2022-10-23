@@ -70,6 +70,8 @@ jobs:
         run: |
           ls -la ./
           ls -la ../
+          ls -la ./dist
+          ls -la ./dist/display
         shell: bash
       
       - name: Upload Web Build
