@@ -10,6 +10,7 @@ plugins {
 group = "no.iktdev"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_16
+base.archivesBaseName = "backend"
 
 
 
@@ -47,8 +48,13 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
-tasks.jar {
+/*tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+	this.archiveFileName.set("${archiveBaseName.get()}.${archiveExtension.get()}")
+}*/
+
+tasks.bootJar {
 	archiveFileName.set("backend.jar")
+	launchScript()
 }
 
 
