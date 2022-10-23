@@ -42,6 +42,8 @@ jobs:
       with: 
         name: backend
         path: ./Backend/build/libs/backend.jar
+        if-no-files-found: error
+        
   ng-build:
     runs-on: ubuntu-latest
     defaults:
@@ -64,11 +66,18 @@ jobs:
         run: |
           ng run display:ngsscbuild:production
       
+      - name: Run LS
+        run: |
+          ls -la ./
+          ls -la ../
+        shell: bash
+      
       - name: Upload Web Build
         uses: actions/upload-artifact@v3.1.1
         with:
           name: dist
           path: ./dist
+          if-no-files-found: error
           
   dockerize:
     runs-on: ubuntu-latest
