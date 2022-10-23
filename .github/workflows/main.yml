@@ -78,7 +78,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.1
         with:
           name: dist
-          path: ./dist/display
+          path: ./dist/display/*
           if-no-files-found: error
           
   dockerize:
