@@ -18,9 +18,10 @@ permissions:
 
 jobs:
   gradle-build:
-
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./Backend
     steps:
     - uses: actions/checkout@v3
     
@@ -34,14 +35,13 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
 
     - name: Execute Gradle
-      working-directory: ./Backend
       run: ./gradlew build
       
     - name: Upload Backend Build Artifact
       uses: actions/upload-artifact@v3.1.1
       with: 
         name: backend
-        path: ./Backend/build/libs/backend.jar
+        path: ./build/libs/backend.jar
         if-no-files-found: error
         
   ng-build:
@@ -69,16 +69,26 @@ jobs:
       - name: Run LS
         run: |
           ls -la ./
-          ls -la ../
           ls -la ./dist
           ls -la ./dist/display
         shell: bash
       
+      - name: Run Zip
+        run: |
+          zip -r web-test.zip ./dist/display
+        shell: bash
+        
+      - name: Upload Test Web Zip Build
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          name: web
+          path: ./web-test.zip
+      
       - name: Upload Web Build
         uses: actions/upload-artifact@v3.1.1
         with:
-          name: dist
-          path: ./dist/display/*
+          name: web
+          path: ./dist/display/
           if-no-files-found: error
           
   dockerize:
@@ -102,8 +112,8 @@ jobs:
       - name: Downloading Web
         uses: actions/download-artifact@v3.0.1
         with:
-          name: dist
-          path: ./dist/
+          name: web
+          path: ./dist/display/
       
       - name: Docker Setup Buildx
         uses: docker/setup-buildx-action@v2.2.1
