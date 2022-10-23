@@ -20,7 +20,7 @@ Invoke-Expression "ng run display:ngsscbuild:production"
 Pop-Location
 
 docker buildx create --use
-docker buildx build --push --platform=linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6 -t bskjon/display:latest .
+docker buildx build --push --platform=linux/amd64,linux/arm64,linux/arm/v7 -t bskjon/display:latest .
 #docker push bskjon/display:latest
 
 $endTime = Get-Date

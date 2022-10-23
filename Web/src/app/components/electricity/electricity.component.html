@@ -1,0 +1,31 @@
+<div class="wrapper" (resized)="onResized($event)">
+    <div #main class="main">
+        <div class="header">
+            <p class="name">Strømpris nå</p>
+            <h1><b>{{ price_now | async }}</b> {{ price_now_unit | async }}</h1>
+        </div>
+        <apx-chart #chart [series]="chartSeries" [chart]="chartConfig" [fill]="fill" [stroke]="chartStroke" [xaxis]="chartXAxis" [yaxis]="chartYAxis" [theme]="theme" [colors]="colors" [annotations]="chartAnnotations"></apx-chart>
+    </div>
+    <div class="side">
+        <div class="price_group" *ngIf="price_min && price_avg && price_max">
+            <div class="price_group_max price_group_slot">
+                <mat-icon>vertical_align_top</mat-icon>
+                <p>{{ price_max | async }}</p>
+                <p class="unit_of_measurement">{{ price_now_unit | async }}</p>
+            </div>
+            <div class="price_group_avg price_group_slot">
+                <mat-icon>vertical_align_center</mat-icon>
+                <p>{{ price_avg | async }}</p>
+                <p class="unit_of_measurement">{{ price_now_unit | async }}</p>
+            </div>
+            <div class="price_group_min price_group_slot">
+                <mat-icon>vertical_align_bottom</mat-icon>
+                <p>{{ price_min | async }}</p>
+                <p class="unit_of_measurement">{{ price_now_unit | async }}</p>
+            </div>
+        </div>
+        <!--<mat-icon>trending_up</mat-icon>
+        <mat-icon>trending_flat</mat-icon>
+        <mat-icon>trending_down</mat-icon>-->
+    </div>
+</div>

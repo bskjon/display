@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http'
 import { isEmpty } from 'rxjs';
@@ -8,8 +8,10 @@ import { isEmpty } from 'rxjs';
   templateUrl: './html-viewer.component.html',
   styleUrls: ['./html-viewer.component.scss']
 })
-export class HtmlViewerComponent implements OnInit {
+export class HtmlViewerComponent implements OnInit, AfterViewInit {
+  @ViewChild('frame') frame: ElementRef;
   @Input() public url: string = "";
+  @Input() public type?: string = undefined;
 
   public safeUrl: SafeResourceUrl = "";
 
@@ -25,6 +27,13 @@ export class HtmlViewerComponent implements OnInit {
     }
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.url)
     //this.http.get(this.url, {responseType: 'text'}).subscribe(res => this.HtmlView = this.sanitizer.bypassSecurityTrustHtml(res))
+  }
+
+  ngAfterViewInit(): void {
+      if (this.frame != null) {
+        const cw = this.frame.nativeElement.contentWindow
+        //print(cw)
+      }
   }
 
 }

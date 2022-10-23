@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AppService } from './app.service';
+import { OverlayService } from './services/overlay.service';
+import { SocketService } from './socket.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +12,10 @@ export class AppComponent {
   title = 'display';
 
   constructor(
-    private appService: AppService
-  ) {}
+    private appService: AppService,
+    private socket: SocketService,
+    public overlayService: OverlayService
+  ) {
+    this.socket.connect();
+  }
 }

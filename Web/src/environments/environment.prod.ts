@@ -19,5 +19,5 @@ import 'angular-server-side-configuration/process';
 
 export const environment = {
   production: true,
-  host: process.env['HOST_IP'] || "127.0.0.1"
+  host: process.env['HOST_IP']+":8080" || "127.0.0.1:8080"
 };

@@ -24,7 +24,6 @@ import { ConnectingPageComponent } from './connecting-page/connecting-page.compo
     ComponentsModule,
     IvyCarouselModule,
     NgbModule
-
   ]
 })
 export class PagesModule { }

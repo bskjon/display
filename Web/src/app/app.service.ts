@@ -1,8 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { isNil } from 'lodash';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Connectivity } from './models/connectivity.enum';
 import { Url } from './models/url.model';
+import { ObservableView } from './models/view/ObservableView';
+import { View } from './models/view/View.model';
 import { SocketService } from './socket.service';
 
 @Injectable({
@@ -14,8 +17,10 @@ export class AppService implements OnDestroy {
   protected pageToReturnToOnOnline: string = "";
 
   public IP_ADDRESS: BehaviorSubject<string> = new BehaviorSubject<string>("UNKNOWN");
-  public CYCLE_INTERVAL: BehaviorSubject<number> = new BehaviorSubject<number>(10000);
-  public urlRef: BehaviorSubject<Array<Url>> = new BehaviorSubject<Array<Url>>([]);
+  public CYCLE_INTERVAL: BehaviorSubject<number> = new BehaviorSubject<number>(5000);
+
+
+  public views: BehaviorSubject<Array<ObservableView>> = new BehaviorSubject<Array<ObservableView>>([]);
 
   private subscriptions: Array<Subscription> = []
 
@@ -24,11 +29,13 @@ export class AppService implements OnDestroy {
     private router: Router
   ) {
     this.subscriptions = [
-      this.ipSub(),
-      this.urlSubList(),
-      this.urlSub(),
+      this.socket.ip.subscribe((ip) => {
+        console.log("New ip" + ip);
+        this.IP_ADDRESS.next(ip);
+      }),
+      this.viewList(),
       this.connectivityHandler(),
-      this.cycleInterval()
+      this.socket.interval.subscribe((nmbr) => this.CYCLE_INTERVAL.next(nmbr))
     ];
 
     this.router.events.subscribe((val) => {
@@ -38,40 +45,44 @@ export class AppService implements OnDestroy {
            
       }
     });
+
+    this.socket.sendTestData();
   }
 
-  private ipSub(): Subscription {
-    return this.socket.ip.subscribe((ip) => {
-      console.log("New ip" + ip);
-      this.IP_ADDRESS.next(ip);
-    });
-  }
 
-  private urlSub(): Subscription {
-    return this.socket.url.subscribe((url) => {
-      const updatedUrls = [
-        ...this.urlRef.getValue(),
-        url
-      ];
-      console.log("Appended to urls");
-      console.log(updatedUrls);
-      this.urlRef.next(updatedUrls);
-      if (updatedUrls.length > 0) {
+  private viewList(): Subscription {
+    return this.socket.view.subscribe((views: View[]) => {
+      console.log(views);
+      if (views.length === 0 && this.views.value.length === 0) {
         this.router.navigate(['/display'])
       }
-    })
-  }
+      views.forEach((view: View) => {
 
-  private urlSubList(): Subscription {
-    return this.socket.urls.subscribe((urls) => {
-      this.urlRef.next(urls);
-      console.log("New urls");
-      console.log(urls);
-      if (urls.length == 0) {
-        this.router.navigate([''])
-      } else {
-        this.router.navigate(['/display'])
-      }
+        const toBeAdded: Array<ObservableView> = [];
+
+        const ex = this.views.value.find((item) => item.viewId === view.viewId)
+        if (isNil(ex)) {
+          toBeAdded.push({
+            viewId: view.viewId,
+            type: view.type,
+            viewWrapper: new BehaviorSubject(view)
+          } as ObservableView);
+        } else {
+          ex.viewWrapper.next(view)
+        }
+
+        const updatedViews = [
+          ...this.views.value,
+          ...toBeAdded
+        ]
+        console.log(updatedViews);
+        this.views.next(updatedViews);
+        console.log("Updated with");
+        console.log(updatedViews)
+        if (updatedViews.length > 0 && window.location.pathname.split("/")[0] != "display") {
+          this.router.navigate(['/display'])
+        }
+      });
     });
   }
 
@@ -94,9 +105,6 @@ export class AppService implements OnDestroy {
     })
   }
 
-  private cycleInterval(): Subscription {
-    return this.socket.interval.subscribe((nmbr) => this.CYCLE_INTERVAL.next(nmbr));
-  }
   
   ngOnDestroy(): void {
       this.subscriptions.forEach(sub => sub.unsubscribe());

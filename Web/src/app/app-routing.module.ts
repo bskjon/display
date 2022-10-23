@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ElectricityComponent } from './components/electricity/electricity.component';
 import { ConnectingPageComponent } from './pages/connecting-page/connecting-page.component';
 import { DefaultPageComponent } from './pages/default-page/default-page.component';
 import { DisplayPageComponent } from './pages/display-page/display-page.component';
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: "offline", component: OfflinePageComponent },
   { path: "connecting", component: ConnectingPageComponent},
   { path: "display", component: DisplayPageComponent},
+  { path: "demo_elprice", component: ElectricityComponent}
 ];
 
 @NgModule({

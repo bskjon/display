@@ -1,10 +1,2 @@
 setuptools==3.3
-python-engineio==4.3.4
-python-socketio==5.7.1
-Flask==2.2.2
-Flask-SocketIO==5.3.1
 netifaces==0.10.6
-eventlet==0.33.1
-pingparsing==1.4.0
-requests==2.22.0
-urllib3==1.25.8

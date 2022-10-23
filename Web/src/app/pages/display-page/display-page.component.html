@@ -1,10 +1,18 @@
-<ngb-carousel [showNavigationIndicators]="true" [showNavigationArrows]="false" [interval]="10000" [pauseOnFocus]="false" [pauseOnHover]="false">
-        <ng-container *ngFor="let view of appService.urlRef | async">
-                <ng-template ngbSlide>
-                        <app-html-viewer [url]="view.url"></app-html-viewer>
+<ngb-carousel [showNavigationIndicators]="true" [showNavigationArrows]="false" [interval]="1000000000" [pauseOnFocus]="false" [pauseOnHover]="false">
+        <!--<ng-template ngbSlide>
+                <app-html-viewer [url]="'https://iktdev.no'"></app-html-viewer>
+        </ng-template>-->
+        <ng-container *ngFor="let observableView of appService.views | async">
+                <ng-template #parent ngbSlide [ngSwitch]="observableView.type"  data-id="{{observableView.viewId}}">
+                        <app-electricity *ngSwitchCase="ViewType.ELECTRICITY" data-id="{{observableView.viewId}}"
+                                [slid]="this.slid"
+                                [viewId]="observableView.viewId"
+                                [view]="observableView.viewWrapper"
+                                ></app-electricity>
+   
+                        <!--<app-html-viewer [url]="viewWrapper.view"></app-html-viewer>-->
                 </ng-template>
         </ng-container>
-        
 </ngb-carousel>
 
 <!--
