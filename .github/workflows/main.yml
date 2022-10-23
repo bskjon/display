@@ -5,7 +5,7 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle
+name: Dockerize Display - Backend + Web
 
 on:
   push:
@@ -34,13 +34,13 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
 
     - name: Execute Gradle
-      run: ./Backend/gradlew build
+      run: Backend/gradlew build
       
     - name: Upload Backend Build Artifact
       uses: actions/upload-artifact@v3.1.1
       with: 
         name: backend
-        path: ./Backend/build/libs/backend.jar
+        path: Backend/build/libs/backend.jar
   ng-build:
     runs-on: ubuntu-latest
     steps:
@@ -68,7 +68,9 @@ jobs:
       - name: Setup Angular Dependencies
         if: steps.cache-nodemodules.outputs.cache-hit != 'true'
         run: |
+          pushd ./Web
           npm ci
+          popd
           
       - name: Execute With Ngssc
         run: |
