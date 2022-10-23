@@ -2,8 +2,8 @@ FROM bskjon/dnj:latest
 
 ARG TARGETARCH
 
-COPY ./dist/display/ /usr/share/nginx/html
-COPY ./backend.java /usr/share/
+COPY dist/display/ /usr/share/nginx/html
+COPY backend.java /usr/share/
 
 
 # Copy Angular nginx config
