@@ -51,6 +51,7 @@ fun main(args: Array<String>) {
 		//views.addAll(deserialized)
 	}
 	ip = Networking().getNetworkCapable().first().hostAddress ?: "Offline"
+	print(ip)
 	context = runApplication<DisplayApplication>(*args)
 
 	views.addListener(object : Listener<View> {

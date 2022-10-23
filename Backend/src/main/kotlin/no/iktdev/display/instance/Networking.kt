@@ -34,7 +34,7 @@ class Networking {
                     socket.connect(InetSocketAddress(Configuration.networkAddressForCheck, 80))
                 }
             } catch (ex: IOException) {
-                ex.printStackTrace()
+                //ex.printStackTrace()
                 continue
             }
             return true
