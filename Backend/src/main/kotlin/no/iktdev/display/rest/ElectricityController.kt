@@ -73,9 +73,16 @@ class ElectricityController {
             )
         }
 
+        val stripList = listOf(
+            Views.ELECTRICITY_PRICE,
+            Views.GRAPH_ELECTRICITY_PRICE,
+            Views.ELECTRICITY_PRICE_MIN,
+            Views.ELECTRICITY_PRICE_AVG,
+            Views.ELECTRICITY_PRICE_MAX,
+        )
 
         val existing = views.items.find { it.viewId == payload.group }
-        val existingViewItems = existing?.views?.filter { !listOf(Views.ELECTRICITY_PRICE, Views.GRAPH_ELECTRICITY_PRICE).contains(it.viewType)  }
+        val existingViewItems = existing?.views?.filter { !stripList.contains(it.viewType)  }
             ?: listOf()
         newItemViews.addAll(existingViewItems)
 
