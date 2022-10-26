@@ -1,8 +1,16 @@
 <div class="wrapper" (resized)="onResized($event)">
     <div #main class="main">
         <div class="header">
-            <p class="name">Strømpris nå</p>
-            <div style="display: flex;  flex-direction: row;">
+            <!--<p class="name">Strømpris nå</p>-->
+            <div class="content">
+                <mat-icon
+                    [ngClass]="{
+                        'very_expensive': (price_level | async) === 'VERY_EXPENSIVE',
+                        'expensive': (price_level | async) === 'EXPENSIVE',
+                        'average': (price_level | async) === 'AVERAGE',
+                        'cheap': (price_level | async) === 'CHEAP',
+                        'very_cheap': (price_level | async) === 'VERY_CHEAP'
+                    }">bolt</mat-icon>
                 <h1 
                     [ngClass]="{
                         'very_expensive': (price_level | async) === 'VERY_EXPENSIVE',

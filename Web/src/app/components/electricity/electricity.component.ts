@@ -170,7 +170,7 @@ export class ElectricityComponent implements OnInit, OnDestroy, AfterViewInit {
         name: view.title,
         data: this.transform(view.value),
         type: (view.viewType === Views.GRAPH_ELECTRICITY_PRICE) ? 'area' : 'bar',
-        color: (view.viewType === Views.GRAPH_ELECTRICITY_PRICE) ? '#FFA500': '#00a8e6'
+        color: (view.viewType === Views.GRAPH_ELECTRICITY_PRICE) ? '#FFA500': '#5200a3'
       }
     ]
     if (view.viewType === Views.GRAPH_ELECTRICITY_PRICE) {
@@ -252,7 +252,7 @@ export class ElectricityComponent implements OnInit, OnDestroy, AfterViewInit {
           },
           {
             offset: 80,
-            color: '#00ff00', //Lysegrønn
+            color: '#00a300', //Lysegrønn
             opacity: 1
           },
           {
@@ -272,7 +272,7 @@ export class ElectricityComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public colors = [
-    '#FFA500', '#00a8e6'
+    '#FFA500', '#5200a3'
   ]
 
 }

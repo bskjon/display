@@ -3,8 +3,41 @@
     height: 100vh;
 }
 
+$very_expensive:  rgb(255, 0, 0);
+$expensive: rgb(150, 0, 0);
+$average: rgb(255, 166, 0);
+$cheap: rgb(0, 180, 0);
+$very_cheap: green;
 
 .header {
+
+    .content {
+        display: flex;  flex-direction: row;
+
+        mat-icon {
+            &.very_expensive  { 
+                color: $very_expensive;
+                -webkit-text-fill-color: $very_expensive;
+            }
+            &.expensive { 
+                color: $expensive;
+                -webkit-text-fill-color: $expensive
+             }
+            &.average { 
+                color: $average; 
+                -webkit-text-fill-color: $average;
+            }
+            &.cheap { 
+                color: $cheap; 
+                -webkit-text-fill-color: $cheap;
+            }
+            &.very_cheap { 
+                color: $very_cheap; 
+                -webkit-text-fill-color: $very_cheap;
+            }
+        }
+
+    }
 
     .name {
         font-size: 1.75em;
@@ -14,10 +47,19 @@
     }
 
     h1 {
-        font-size: 5em;
+        font-size: 7rem;
         line-height: normal;
         margin: 0px;
         padding: 0.5rem;
+    }
+    mat-icon {
+        font-size: 7rem;
+        line-height: normal;
+        margin: 0px;
+        width: 7rem;
+        height: auto;
+        margin-top: auto;
+        margin-bottom: auto;
     }
 
     .unit_formatting {
@@ -30,7 +72,7 @@
             line-height: normal;
             margin: 0px;
             font-weight: 100;
-            font-size: 2em;
+            font-size: 4rem;
         }
         :first-child {
             border-bottom: 0.5px solid gray;
@@ -74,8 +116,9 @@
         align-content: center;
         align-items: center;
         width: 100%;
+        margin: 10px 0px;
         h2 {
-            font-size: 3em;
+            font-size: 3rem;
             line-height: normal;
             margin: 0px;
             padding: 0.5rem;
@@ -96,7 +139,7 @@
             }
     
             &.red {
-                background-color: red;
+                background-color: rgb(163, 0, 0);
             }
 
             &.yellow {
@@ -133,22 +176,14 @@
 
 
 
-.very_expensive {
-    background-color: rgb(255, 0, 0);
-}
+h1.very_expensive  { background-color: $very_expensive }
 
-.expensive {
-    background-color: rgb(150, 0, 0);
-}
+h1.expensive { background-color: $expensive; }
 
-.average {
-    background-color: rgb(255, 166, 0);
-}
+h1.average { background-color: $average; }
 
-.cheap {
-    background-color: rgb(0, 180, 0);
-}
+h1.cheap { background-color: $cheap; }
 
-.very_cheap {
-    background-color: green;
-}
+h1.very_cheap { background-color: $very_cheap; }
+
+
