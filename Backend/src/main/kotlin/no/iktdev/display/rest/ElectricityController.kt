@@ -20,6 +20,7 @@ class ElectricityController {
     fun elprice(@RequestBody payload: Electricity_Price) {
         val id_elPriceNow = "${payload.id}-now"
         val id_elPriceToday = "${payload.id}-today"
+        val id_elPriceLevel = "${payload.id}-level"
 
         val id_elPriceMin = "${payload.id}-min"
         val id_elPriceAvg = "${payload.id}-avg"
@@ -73,8 +74,20 @@ class ElectricityController {
             )
         }
 
+        if (!payload.price_level.isNullOrEmpty()) {
+            newItemViews.add(
+                ViewItemSingleValueBased(
+                    viewItemId = id_elPriceLevel,
+                    viewType = Views.ELECTRICITY_PRICE_LEVEL,
+                    title = payload.title ?: "PRICE_LEVEL",
+                    value = payload.price_level
+                )
+            )
+        }
+
         val stripList = listOf(
             Views.ELECTRICITY_PRICE,
+            Views.ELECTRICITY_PRICE_LEVEL,
             Views.GRAPH_ELECTRICITY_PRICE,
             Views.ELECTRICITY_PRICE_MIN,
             Views.ELECTRICITY_PRICE_AVG,

@@ -48,7 +48,8 @@ export class ElectricityComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() public view?: BehaviorSubject<View>;
   @Input() public slid?: Subject<NgbSlideEvent>
   public price_now: BehaviorSubject<string> = new BehaviorSubject<string>("N/A");
-  public price_now_unit: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  public price_level: BehaviorSubject<string|null> = new BehaviorSubject<string|null>(null);
+  public price_now_unit: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>([]);
   public price_min: BehaviorSubject<string|null> = new BehaviorSubject<string|null>(null);
   public price_avg: BehaviorSubject<string|null> = new BehaviorSubject<string|null>(null);
   public price_max: BehaviorSubject<string|null> = new BehaviorSubject<string|null>(null);
@@ -109,7 +110,8 @@ export class ElectricityComponent implements OnInit, OnDestroy, AfterViewInit {
         {
           const elPrice = <ViewItemSingleDatedNumberBased>view;
           this.price_now.next(elPrice.value.value.toString());
-          this.price_now_unit.next(elPrice.unitOfMeasurement.toString());
+          this.price_now_unit.next(elPrice.unitOfMeasurement.toString().split("/"));
+          //this.price_level.next(elPrice.)
 
           const priceNowAnnotation: XAxisAnnotations = 
           {
@@ -133,7 +135,11 @@ export class ElectricityComponent implements OnInit, OnDestroy, AfterViewInit {
           ]
           console.log(this.chartAnnotations)
         
-        } 
+        }
+        else if (view.viewType === Views.ELECTRICITY_PRICE_LEVEL) {
+          const lvl = <ViewItem>view;
+          this.price_level.next(lvl.value);
+        }
         else if (view.viewType === Views.ELECTRICITY_PRICE_MIN) {
           const elp = <ViewItemSingleNumberBased>view
           this.price_min.next(elp.value.toFixed(2))

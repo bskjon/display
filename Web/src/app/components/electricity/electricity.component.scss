@@ -19,6 +19,26 @@
         margin: 0px;
         padding: 0.5rem;
     }
+
+    .unit_formatting {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        margin-left: 10px;
+        h2 {
+            line-height: normal;
+            margin: 0px;
+            font-weight: 100;
+            font-size: 2em;
+        }
+        :first-child {
+            border-bottom: 0.5px solid gray;
+        }
+        :last-child {
+            border-top: 0.5px solid gray;
+        }
+    }
 }
 
 .wrapper {
@@ -33,53 +53,102 @@
         width: 30vw;
         height: 100%;
        //background-color: maroon;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 }
 
-.price_group {
+
+.price_row {
     display: flex;
+    align-content: center;
+    align-items: center;
     flex-direction: column;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 10px;
-    margin-top: 0.5rem;
-    .price_group_slot {
-        display: inline-flex;
-        height: 40px;
-        mat-icon {
-            margin-right: 10px;
-            height: 40px;
-            width: 40px;
-            font-size: 30px;
-            padding: 5px;
-            border-radius: 50%;
+    justify-content: center;
+    margin-left: 5px;
+
+
+    .slot {
+        display: flex;
+        align-content: center;
+        align-items: center;
+        width: 100%;
+        h2 {
+            font-size: 3em;
+            line-height: normal;
+            margin: 0px;
+            padding: 0.5rem;
+            display: flex;
+            width: 100%;
+            text-align: left;
+
+            mat-icon {
+                font-size: inherit;
+                line-height: normal;
+                margin-top: auto;
+                margin-bottom: auto;
+                margin-left: 5px;
+                margin-right: 5px;
+
+                width: 1.3em;
+                height: auto;
+            }
+    
+            &.red {
+                background-color: red;
+            }
+
+            &.yellow {
+                background-color: rgb(255, 166, 0);
+            }
+
+            &.green {
+                background-color: green;
+            }
         }
-        p {
-            margin: auto;
-            font-size: 24px;
-            padding-right: 15px;
-            font-weight: bold;
+    
+    
+        .unit_formatting {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            margin-left: 10px;
+            h3 {
+                line-height: normal;
+                margin: 0px;
+                font-weight: 100;
+                font-size: 2em;
+            }
+            :first-child {
+                border-bottom: 0.5px solid gray;
+            }
+            :last-child {
+                border-top: 0.5px solid gray;
+            }
         }
-        .unit_of_measurement {
-            font-weight: 100;
-        }
-        background-color: rgb(29, 29, 29);
-        border-radius: 25px;
-        margin: 2.5px;
     }
-    .price_group_min {
-        mat-icon {
-            background-color: green;
-        }
-    }
-    .price_group_avg {
-        mat-icon {
-            background-color: rgb(204, 133, 0);
-        }
-    }
-    .price_group_max {
-        mat-icon {
-            background-color: red;
-        }
-    }
+}
+
+
+
+.very_expensive {
+    background-color: rgb(255, 0, 0);
+}
+
+.expensive {
+    background-color: rgb(150, 0, 0);
+}
+
+.average {
+    background-color: rgb(255, 166, 0);
+}
+
+.cheap {
+    background-color: rgb(0, 180, 0);
+}
+
+.very_cheap {
+    background-color: green;
 }
