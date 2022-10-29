@@ -7,6 +7,8 @@ import { ElectricityComponent } from './electricity/electricity.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { MatIconModule } from '@angular/material/icon';
 import { OverlayComponent } from './overlay/overlay.component';
+import { CounterComponent } from './counter/counter.component';
+import { NumberSlotComponent } from './counter/number-slot/number-slot.component';
 
 
 
@@ -14,7 +16,9 @@ import { OverlayComponent } from './overlay/overlay.component';
   declarations: [
     HtmlViewerComponent,
     ElectricityComponent,
-    OverlayComponent
+    OverlayComponent,
+    CounterComponent,
+    NumberSlotComponent
   ],
   imports: [
     CommonModule,
@@ -23,6 +27,6 @@ import { OverlayComponent } from './overlay/overlay.component';
     NgApexchartsModule,
     MatIconModule
   ],
-  exports: [HtmlViewerComponent, ElectricityComponent, OverlayComponent]
+  exports: [HtmlViewerComponent, ElectricityComponent, OverlayComponent, CounterComponent]
 })
 export class ComponentsModule { }
