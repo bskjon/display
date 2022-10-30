@@ -15,4 +15,14 @@ internal class ElectricityTest {
             assertNotNull(paresed)
         }
     }
+
+    @Test
+    fun tibberTime() {
+        val time="2022-09-30T22:00:00+00:00"
+        assertDoesNotThrow {
+            val paresed = OffsetDateTime.parse(time)
+
+            assertNotNull(paresed)
+        }
+    }
 }

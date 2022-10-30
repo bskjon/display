@@ -5,6 +5,7 @@ import { IvyCarouselModule } from 'angular-responsive-carousel2';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
+import { ViewModule } from './view/view.module';
 import { PagesModule } from './pages/pages.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
     AppRoutingModule,
     PagesModule,
     ComponentsModule,
+    ViewModule,
     IvyCarouselModule,
     NgbModule,
     BrowserAnimationsModule,

@@ -1,0 +1,15 @@
+query TibberHomes {
+    viewer {
+        homes {
+            id
+            currentSubscription {
+                validTo
+            }
+            address {
+                address1
+                postalCode
+                city
+            }
+        }
+    }
+}

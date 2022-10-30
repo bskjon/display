@@ -5,6 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.14.RELEASE"
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
+	id("com.apollographql.apollo3").version("3.6.2")
 }
 
 group = "no.iktdev"
@@ -31,11 +32,23 @@ dependencies {
 	implementation("com.google.code.gson:gson:2.9.0")
 	implementation("org.springframework:spring-websocket:5.3.20")
 	implementation("org.springframework:spring-messaging")
+	implementation("com.apollographql.apollo3:apollo-runtime:3.6.2")
+	implementation( "io.reactivex.rxjava2:rxjava:2.2.7")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.4")
 	testImplementation("org.springframework:spring-webflux:5.3.23")
 	testImplementation("org.springframework.graphql:spring-graphql-test:1.0.1")
 }
+
+apollo {
+	packageName.set("no.iktdev.display")
+	generateKotlinModels.set(true)
+	//schemaFile.set(file("src/main/graphql/no/iktdev/display/schema.graphqls"))
+}
+
+
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions {

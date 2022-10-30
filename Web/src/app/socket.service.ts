@@ -10,6 +10,7 @@ import { DatedNumberValue } from './models/view/data/DatedNumberValue';
 import { Weather } from './models/view/Weather.model';
 import { Climate } from './models/Climate.modal';
 import { OverlayService } from './services/overlay.service';
+import { LiveValueService } from './services/live-value.service';
 
 
 
@@ -36,7 +37,8 @@ export class SocketService implements OnInit {
 
   // https://www.digitalocean.com/community/tutorials/angular-socket-io#step-2-installing-angular-cli-and-creating-the-client-app
   constructor(
-    private overlayService: OverlayService
+    private overlayService: OverlayService,
+    private liveValueSerive: LiveValueService
   ) { 
     
   }
@@ -116,6 +118,13 @@ export class SocketService implements OnInit {
       const changes = this.decodeTo<Array<Climate>>(data);
       console.log(changes);
       this.overlayService.climateChanges.next(changes);
+    })
+
+    const meterLiveConsumption = this.socket!.subscribe("/push/meter/live", (data: IMessage) => {
+      const measurment = this.decodeTo<number>(data);
+      this.liveValueSerive.meterLiveConsumption.next(measurment);
+      console.log(measurment)
+      
     })
 
 

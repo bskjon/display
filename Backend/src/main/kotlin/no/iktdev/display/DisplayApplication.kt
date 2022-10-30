@@ -2,16 +2,14 @@ package no.iktdev.display
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import no.iktdev.display.helper.FilePath
-import no.iktdev.display.helper.ObservableList
+import no.iktdev.display.helper.*
 import no.iktdev.display.helper.ObservableList.Listener
-import no.iktdev.display.helper.Reader
-import no.iktdev.display.helper.Writer
 import no.iktdev.display.instance.Networking
 import no.iktdev.display.model.Climate
 import no.iktdev.display.model.View
 import no.iktdev.display.model.Weather
 import no.iktdev.display.ws.ClimateSocket
+import no.iktdev.display.ws.MeterMeasurementSocket
 import no.iktdev.display.ws.Views
 import no.iktdev.display.ws.WeatherSocket
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -41,7 +39,7 @@ fun getViewsFile(): File {
 var ip: String = "Unavailable"
 
 val weather: ObservableList<Weather> = ObservableList() // Only for weather
-val climate: ObservableList<no.iktdev.display.model.Climate> = ObservableList()
+val climate: ObservableList<Climate> = ObservableList()
 val views: ObservableList<View> = ObservableList()
 fun main(args: Array<String>) {
 	val storedViewFile = getViewsFile()
@@ -50,7 +48,7 @@ fun main(args: Array<String>) {
 		//val deserialized = Gson().fromJson<List<View>>(read, object: TypeToken<List<View>>() {}.type)
 		//views.addAll(deserialized)
 	}
-	ip = Networking().getNetworkCapable().first().hostAddress ?: "Offline"
+	ip = Networking().getNetworkCapable().firstOrNull()?.hostAddress ?: "Offline"
 	print(ip)
 	context = runApplication<DisplayApplication>(*args)
 
@@ -108,6 +106,13 @@ fun main(args: Array<String>) {
 
 		}
 
+	})
+
+	WattageLoadService.get()?.platform?.wattConsumption?.addListener(object : ObservableValue.ValueListener<Double?> {
+		override fun onUpdated(value: Double?) {
+			if (value != null)
+				MeterMeasurementSocket.get()?.pushLiveMeasurement(value)
+		}
 	})
 }
 
