@@ -8,10 +8,12 @@ export class View {
 
 export enum ViewType {
     ELECTRICITY             = "ELECTRICITY",
+    ELECTRICITY_METER       = "ELECTRICITY_METER",
     WEATHER                 = "WEATHER",
     CLIMATE_TEMPERATURE     = "CLIMATE_TEMPERATURE",
     CLIMATE_HUMIDITY        = "CLIMATE_HUMIDITY",
     CLIMATE_CO2             = "CLIMATE_CO2",
+
 }
 
 export enum Views {

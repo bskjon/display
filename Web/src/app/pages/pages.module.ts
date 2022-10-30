@@ -8,6 +8,7 @@ import { ComponentsModule } from '../components/components.module';
 import { IvyCarouselModule } from 'angular-responsive-carousel2';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConnectingPageComponent } from './connecting-page/connecting-page.component';
+import { ViewModule } from '../view/view.module';
 
 
 
@@ -22,6 +23,7 @@ import { ConnectingPageComponent } from './connecting-page/connecting-page.compo
   imports: [
     CommonModule,
     ComponentsModule,
+    ViewModule,
     IvyCarouselModule,
     NgbModule
   ]

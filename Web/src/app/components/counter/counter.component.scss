@@ -1,10 +1,10 @@
 
-$slot_height: 5rem;
+$slot_height: 10rem;
 
 .horizon {
     display: block;
     height: $slot_height;
-    background-image: linear-gradient(rgb(0 0 0) 5%, rgba(102, 25, 102, 0) 10% 85%, rgb(0 0 0) 95%);;
+    background-image: linear-gradient(rgb(0, 0, 0) 0%, rgba(102, 25, 102, 0) 12% 88%, rgb(0, 0, 0) 100%);;
 
     position: absolute;
     top: 0px;

@@ -58,7 +58,7 @@ class Tibber: GraphQlProvider() {
             .collect {
                 val measurement = it.data?.liveMeasurement?.power
                 wattConsumption.next(measurement)
-                Logger.info(this@Tibber, "Reading $measurement on home $obtainedId")
+//                Logger.info(this@Tibber, "Reading $measurement on home $obtainedId")
             }
     }
 

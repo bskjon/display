@@ -9,7 +9,12 @@
                                 [viewId]="observableView.viewId"
                                 [view]="observableView.viewWrapper"
                                 ></app-electricity>
-   
+                        <app-live-counter-view *ngSwitchCase="ViewType.ELECTRICITY_METER" 
+                                data-id="{{observableView.viewId}}"
+                        
+                        >
+
+                        </app-live-counter-view>
                         <!--<app-html-viewer [url]="viewWrapper.view"></app-html-viewer>-->
                 </ng-template>
         </ng-container>

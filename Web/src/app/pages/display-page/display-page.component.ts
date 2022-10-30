@@ -43,9 +43,6 @@ export class DisplayPageComponent implements OnInit, AfterViewInit, OnDestroy {
     
   }
 
-  isChartPage(id: string): boolean {
-    return false;
-  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(item => {

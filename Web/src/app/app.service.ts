@@ -17,7 +17,7 @@ export class AppService implements OnDestroy {
   protected pageToReturnToOnOnline: string = "";
 
   public IP_ADDRESS: BehaviorSubject<string> = new BehaviorSubject<string>("UNKNOWN");
-  public CYCLE_INTERVAL: BehaviorSubject<number> = new BehaviorSubject<number>(5000);
+  public CYCLE_INTERVAL: BehaviorSubject<number> = new BehaviorSubject<number>(30000);
 
 
   public views: BehaviorSubject<Array<ObservableView>> = new BehaviorSubject<Array<ObservableView>>([]);
@@ -93,6 +93,7 @@ export class AppService implements OnDestroy {
         case Connectivity.ONLINE:
           if (this.connectionState != Connectivity.ONLINE) {
             this.router.navigate([this.pageToReturnToOnOnline]);
+            console.log("Navigating to prev")
           }
           break;
         case Connectivity.OFFLINE:

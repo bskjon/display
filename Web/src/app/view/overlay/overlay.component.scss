@@ -1,0 +1,141 @@
+:host {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+    pointer-events: none;
+
+    .overlay {
+        display: flex;
+        height: 100vh;
+        width: 100vw;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-content: stretch;
+    }
+
+    .show {
+        background-image: linear-gradient(to right, rgba(128, 0, 128, 0), rgba(128, 0, 128, 0.75), purple);
+        animation: appear 1.5s ease-in;
+        opacity: 1;
+    }
+
+    .hide {
+        animation: hide 2s ease-out;
+        opacity: 0;
+    }
+
+    @keyframes appear {
+        0% { 
+            opacity: 0;
+            translate: translateX(100vw);
+            -webkit-transform: translateX(100vw);
+            -moz-transform: translateX(100vw);
+        }
+        75% {
+            translate: translateX(0);
+            -webkit-transform: translateX(0);
+            -moz-transform: translateX(0);
+        }
+
+        100% { 
+            opacity: 1;
+        }
+    }
+
+    @keyframes hide {
+        0% { 
+            background-image: linear-gradient(to right, rgba(128, 0, 128, 0), rgba(128, 0, 128, 0.75), purple);
+            opacity: 1;
+        }
+        50% {
+            translate: translateX(0);
+            -webkit-transform: translateX(0);
+            -moz-transform: translateX(0);
+        }
+        99% {
+            background-image: linear-gradient(to right, rgba(128, 0, 128, 0), rgba(128, 0, 128, 0.75), purple);
+        }
+        100% { 
+            opacity: 0;
+            translate: translateX(100vw);
+            -webkit-transform: translateX(100vw);
+            -moz-transform: translateX(100vw);
+            background-image: 0;
+        }
+    }
+    .drawable-area {
+        height: 100vh;
+        width: 40vw;
+        display: flex;
+      //  justify-content: center;
+        flex-direction: column;
+        align-items: center;
+
+        .icon {
+            margin-top: 50px;
+            text-align: center;
+           /* background-color: chocolate;*/
+            height: 200px;
+            width: 200px;
+        }
+
+        .weather-forecast {
+            h1 {
+                font-size: 4rem;
+                line-height: normal;
+            }
+
+            .temperature, .rain, .wind {
+                display: flex;
+                padding: 0.25rem;
+                margin-top: 0.1rem;
+                margin-bottom: 0.1rem;
+                h2 {
+                    line-height: normal;
+                    font-size: 2rem;
+                    margin-top: auto;
+                    margin-bottom: auto;
+                }
+                mat-icon {
+                    font-size: 2rem;
+                    height: 2rem;
+                    width: 2rem;
+                    margin: auto 0.5rem auto 0;
+                }
+            }
+            
+        }
+
+        .climate {
+            .value {
+                display: flex;
+                padding: 0.25rem;
+                margin-top: 0.1rem;
+                margin-bottom: 0.1rem;
+                h1 {
+                    line-height: normal;
+                    font-size: 4rem;
+                    margin-top: auto;
+                    margin-bottom: auto;
+                }
+
+                mat-icon {
+                    font-size: 2rem;
+                    height: 2rem;
+                    width: 2rem;
+                    margin: auto 0.5rem auto 0;
+                }
+            }
+            h2 {
+                line-height: normal;
+                font-size: 2.5rem;
+                margin-top: auto;
+                margin-bottom: auto;
+                font-weight: lighter;
+            }
+        }
+    }
+}
