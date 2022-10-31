@@ -27,4 +27,6 @@ abstract class GraphQlProvider(): ServiceProvider() {
         }
 
     }
+
+    class InvalidMeasurementData(override val message: String = "Invalid data received from service") : Exception()
 }

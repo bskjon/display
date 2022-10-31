@@ -20,7 +20,10 @@ class Tibber: GraphQlProvider() {
         scope.launch {
             try {
                 subscribe()
-            } catch (e: ApolloNetworkException) {
+            } catch (e: ApolloNetworkException ) {
+                e.printStackTrace()
+                start()
+            } catch (e: InvalidMeasurementData) {
                 e.printStackTrace()
                 start()
             }
@@ -61,6 +64,8 @@ class Tibber: GraphQlProvider() {
                 val measurement = it.data?.liveMeasurement?.power
                 wattConsumption.next(measurement)
                 Logger.info(this@Tibber, "$measurement on home $obtainedId")
+                if (measurement == null)
+                    throw InvalidMeasurementData("Tibber provided measurement: $measurement. This value is an indication of subscription failure and code will re-try")
             }
     }
 
@@ -78,6 +83,5 @@ class Tibber: GraphQlProvider() {
             .addInterceptor(AuthorizationInterceptor(Configuration.platformWattMeterToken?: ""))
             .build()
     }
-
 
 }
