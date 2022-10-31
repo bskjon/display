@@ -33,6 +33,8 @@ class WattageLoadService {
                     if (views.items.find { it.type == ViewType.ELECTRICITY_METER } == null) {
                         views.add(getView())
                     }
+                } else {
+                    Logger.info(this, "Platform Watt Consumption is null")
                 }
             }
         })

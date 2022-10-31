@@ -114,6 +114,8 @@ fun main(args: Array<String>) {
 				MeterMeasurementSocket.get()?.pushLiveMeasurement(value)
 		}
 	})
+	Views.get()?.pushViews(views.items)
+
 }
 
 

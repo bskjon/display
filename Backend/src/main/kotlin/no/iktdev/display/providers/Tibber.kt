@@ -21,6 +21,7 @@ class Tibber: GraphQlProvider() {
             try {
                 subscribe()
             } catch (e: ApolloNetworkException) {
+                e.printStackTrace()
                 start()
             }
         }
@@ -54,11 +55,12 @@ class Tibber: GraphQlProvider() {
             .okHttpClient(httpClient())
             .build()
 
+        Logger.info(this, "Starting Live measurement on home with id: $obtainedId")
         ws.subscription(TibberPulseSubscription(obtainedId)).toFlow()
             .collect {
                 val measurement = it.data?.liveMeasurement?.power
                 wattConsumption.next(measurement)
-//                Logger.info(this@Tibber, "Reading $measurement on home $obtainedId")
+                Logger.info(this@Tibber, "$measurement on home $obtainedId")
             }
     }
 
