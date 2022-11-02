@@ -11,6 +11,8 @@ import { Weather } from './models/view/Weather.model';
 import { Climate } from './models/Climate.modal';
 import { OverlayService } from './services/overlay.service';
 import { LiveValueService } from './services/live-value.service';
+import { IdBehaviourSubject, LiveWatt } from './models/data.models';
+import { isNil } from 'lodash';
 
 
 
@@ -121,9 +123,18 @@ export class SocketService implements OnInit {
     })
 
     const meterLiveConsumption = this.socket!.subscribe("/push/meter/live", (data: IMessage) => {
-      const measurment = this.decodeTo<number>(data);
-      this.liveValueSerive.meterLiveConsumption.next(measurment);
-      console.log(measurment)
+      const measurments = this.decodeTo<LiveWatt>(data);
+      const present = this.liveValueSerive.meterLiveConsumption.value.find(it => it.id === measurments.id)
+      if (isNil(present)) {
+        const merged = [
+          ...this.liveValueSerive.meterLiveConsumption.getValue(),
+          new IdBehaviourSubject<LiveWatt>(measurments.id, measurments)
+        ];
+        this.liveValueSerive.meterLiveConsumption.next(merged);
+      } else {
+        present.next(measurments);
+      }
+      console.log(measurments)
       
     })
 

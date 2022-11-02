@@ -6,6 +6,7 @@ import no.iktdev.display.helper.*
 import no.iktdev.display.helper.ObservableList.Listener
 import no.iktdev.display.instance.Networking
 import no.iktdev.display.model.Climate
+import no.iktdev.display.model.LiveWatt
 import no.iktdev.display.model.View
 import no.iktdev.display.model.Weather
 import no.iktdev.display.ws.ClimateSocket
@@ -44,9 +45,14 @@ val views: ObservableList<View> = ObservableList()
 fun main(args: Array<String>) {
 	val storedViewFile = getViewsFile()
 	if (storedViewFile.exists()) {
-		val read = Reader().read(storedViewFile) ?: return
-		//val deserialized = Gson().fromJson<List<View>>(read, object: TypeToken<List<View>>() {}.type)
-		//views.addAll(deserialized)
+		try {
+			val read = Reader().readWith<List<View>>(storedViewFile)
+			if (read != null) {
+				views.addAll(read)
+			}
+		} catch (e: Exception) {
+			e.printStackTrace()
+		}
 	}
 	ip = Networking().getNetworkCapable().firstOrNull()?.hostAddress ?: "Offline"
 	print(ip)
@@ -108,8 +114,8 @@ fun main(args: Array<String>) {
 
 	})
 
-	WattageLoadService.get()?.platform?.wattConsumption?.addListener(object : ObservableValue.ValueListener<Double?> {
-		override fun onUpdated(value: Double?) {
+	WattageLoadService.get()?.platform?.wattConsumption?.addListener(object : ObservableValue.ValueListener<LiveWatt?> {
+		override fun onUpdated(value: LiveWatt?) {
 			if (value != null)
 				MeterMeasurementSocket.get()?.pushLiveMeasurement(value)
 		}

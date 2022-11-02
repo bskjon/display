@@ -13,8 +13,9 @@ abstract class GraphQlProvider(): ServiceProvider() {
     abstract fun httpClient(): OkHttpClient
     open fun defaultBuilder(): ApolloClient.Builder {
         return ApolloClient.Builder()
-            .wsProtocol(GraphQLWsProtocol.Factory())
+           // .wsProtocol(GraphQLWsProtocol.Factory())
     }
+
 
 
     protected class AuthorizationInterceptor(private val token: String = ""): Interceptor {

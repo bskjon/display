@@ -1,5 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { isNil, takeWhile } from 'lodash';
+import { BehaviorSubject, filter, find, first, Subscription, take, takeUntil, tap } from 'rxjs';
+import { IdBehaviourSubject, LiveWatt } from 'src/app/models/data.models';
+import { KV } from 'src/app/models/view/Weather.model';
 import { LiveValueService } from 'src/app/services/live-value.service';
 
 @Component({
@@ -8,24 +11,37 @@ import { LiveValueService } from 'src/app/services/live-value.service';
   styleUrls: ['./live-counter-view.component.scss']
 })
 export class LiveCounterViewComponent implements OnInit, OnDestroy {
-
+  @Input() public liveValueId: string | null = null
   public meterLiveValue: number = 0o0
 
-  private subs: Subscription[] = [];
+  private liveValueSubscriber: Subscription | null = null;
+  private meterLiveConsumptionSubscriber: Subscription | null = null
   constructor(
     public live: LiveValueService
   ) { }
 
   ngOnInit(): void {
-    this.subs.push(
-      this.live.meterLiveConsumption.subscribe((value) => {
-        this.meterLiveValue = value;
-      })
-    )
+    this.meterLiveConsumptionSubscriber = this.live.meterLiveConsumption.subscribe(
+      (values) => {
+        console.log(values);
+        const desiredSubscriber = values.find(value => value.id === this.liveValueId)
+        if (!isNil(desiredSubscriber)) {
+          this.setDesiredSubscribtion(desiredSubscriber);
+        }
+    })
   }
 
+  private setDesiredSubscribtion(sub: IdBehaviourSubject<LiveWatt>) {
+    this.meterLiveConsumptionSubscriber?.unsubscribe();
+    this.meterLiveConsumptionSubscriber = null;
+    this.liveValueSubscriber = sub.subscribe((value) => {
+      this.meterLiveValue = value.power
+    });
+  }
+ 
   ngOnDestroy(): void {
-      this.subs.forEach(sub => sub.unsubscribe());
+      this.liveValueSubscriber?.unsubscribe();
+      this.meterLiveConsumptionSubscriber?.unsubscribe();
   }
 
 }

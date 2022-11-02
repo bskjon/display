@@ -3,6 +3,7 @@ package no.iktdev.display.ws
 import no.iktdev.display.climate
 import no.iktdev.display.getContext
 import no.iktdev.display.model.Climate
+import no.iktdev.display.model.LiveWatt
 import no.iktdev.display.model.View
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.messaging.handler.annotation.MessageMapping
@@ -19,8 +20,8 @@ class MeterMeasurementSocket @Autowired constructor(private val template: SimpMe
     }
 
     @SendTo("/push/meter/live")
-    fun pushLiveMeasurement(value: Double) {
-        println("Pushing live")
+    fun pushLiveMeasurement(value: LiveWatt) {
+        // println("Pushing live")
         template.convertAndSend("/push/meter/live", value)
     }
 

@@ -10,6 +10,7 @@
                                 [view]="observableView.viewWrapper"
                                 ></app-electricity>
                         <app-live-counter-view *ngSwitchCase="ViewType.ELECTRICITY_METER" 
+                                [liveValueId]="observableView.viewId"
                                 data-id="{{observableView.viewId}}"
                         
                         >
