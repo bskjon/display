@@ -5,11 +5,10 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.14.RELEASE"
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
-	id("com.apollographql.apollo3").version("3.6.2")
 }
 
 group = "no.iktdev"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.2-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_16
 base.archivesBaseName = "backend"
 
@@ -19,6 +18,9 @@ repositories {
 	mavenCentral()
 	maven { url = uri("https://repo.spring.io/milestone") }
 	maven { url = uri("https://jitpack.io") }
+	maven {
+		url = uri("https://reposilite.iktdev.no/snapshots")
+	}
 }
 
 dependencies {
@@ -35,17 +37,12 @@ dependencies {
 	implementation("com.apollographql.apollo3:apollo-runtime:3.6.2")
 	implementation( "io.reactivex.rxjava2:rxjava:2.2.7")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+	implementation("no.iktdev.apis:Kibber:1.0-SNAPSHOT")
 
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.4")
 	testImplementation("org.springframework:spring-webflux:5.3.23")
 	testImplementation("org.springframework.graphql:spring-graphql-test:1.0.1")
-}
-
-apollo {
-	packageName.set("no.iktdev.display")
-	generateKotlinModels.set(true)
-	//schemaFile.set(file("src/main/graphql/no/iktdev/display/schema.graphqls"))
 }
 
 

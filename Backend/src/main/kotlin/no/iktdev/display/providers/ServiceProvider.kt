@@ -12,11 +12,16 @@ abstract class ServiceProvider {
     val scope: CoroutineScope = CoroutineScope(Job() + Dispatchers.Default)
     val wattConsumption: ObservableValue<LiveWatt?> = ObservableValue()
 
-    init {
-        start()
-    }
-    abstract fun start(): Unit
+    protected abstract var start: () -> Unit
 
-    abstract fun close()
+    protected abstract var stop: () -> Unit
+
+    fun start() {
+        start.invoke()
+    }
+
+    fun stop() {
+        stop.invoke()
+    }
 
 }

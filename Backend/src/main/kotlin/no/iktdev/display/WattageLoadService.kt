@@ -1,13 +1,9 @@
 package no.iktdev.display
 
-import com.apollographql.apollo3.ApolloClient
-import com.apollographql.apollo3.network.ws.GraphQLWsProtocol
 import no.iktdev.display.helper.ObservableValue
 import no.iktdev.display.model.*
 import no.iktdev.display.providers.ServiceProvider
-import no.iktdev.display.providers.Tibber
-import no.iktdev.display.ws.ClimateSocket
-import no.iktdev.display.ws.MeterMeasurementSocket
+import no.iktdev.display.providers.TibberServiceProvider
 import org.springframework.stereotype.Service
 import javax.annotation.PreDestroy
 
@@ -22,7 +18,7 @@ class WattageLoadService {
 
     init {
         platform = when (Configuration.platformWattMeterProvider) {
-            "TIBBER" -> Tibber()
+            "TIBBER" -> TibberServiceProvider()
             else -> null
         }
         platform?.wattConsumption?.addListener(object : ObservableValue.ValueListener<LiveWatt?> {
@@ -36,6 +32,7 @@ class WattageLoadService {
                 }
             }
         })
+        platform?.start()
     }
 
 
@@ -50,6 +47,6 @@ class WattageLoadService {
 
     @PreDestroy
     fun close() {
-        this.platform?.close()
+        this.platform?.stop()
     }
 }
