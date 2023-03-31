@@ -1,0 +1,19 @@
+
+
+version: '3.1'
+
+services:
+
+  display:
+    restart: always
+    hostname: display
+    container_name: display
+    image: bskjon/display:latest
+    network_mode: "host"
+    environment:
+      METER_PLATFORM: TIBBER
+      METER_PLATFORM_TOKEN: Hrhlrozgdgs7kPxbacu-AYEPeXAqrqe1XZToeDSpisE
+    volumes:
+      - ./data/zookeeper:/var/lib/zookeeper/
+
+

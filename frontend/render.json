@@ -1,0 +1,16 @@
+{
+    "layout": {
+        "rowCounts": 3,
+        "rows": [
+            {
+                "columnCounts": 4,
+                "columns": [
+                    {
+                        "view": null,
+                        "weight": 1
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -32,8 +32,8 @@ export class SocketService implements OnInit {
 
   // https://kipalog.com/posts/Angular-12-WebSocket-example-with-Spring-Boot-WebSocket-Server---SockJS---STOMP
   // https://haseeamarathunga.medium.com/create-a-spring-boot-angular-websocket-using-sockjs-and-stomp-cb339f766a98
-  private readonly serverUrl: string = this.getUrl()
-  //private readonly serverUrl: string = "http://192.168.2.250:8090/";
+  //private readonly serverUrl: string = this.getUrl()
+  private readonly serverUrl: string = "http://192.168.2.5/";
   public socket: CompatClient | null = null;
 
 
