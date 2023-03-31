@@ -18,9 +18,9 @@ permissions:
   contents: read
 
 env:
-  FE_DIR: 'Frontend'
+  FE_DIR: 'frontend'
   FE_ART_NAME: 'frontend'
-  BE_DIR: 'Backend'
+  BE_DIR: 'backend'
   BE_ART_NAME: 'backend'
 
 
