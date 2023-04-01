@@ -22,7 +22,7 @@ env:
   FE_ART_NAME: 'frontend'
   BE_DIR: 'backend'
   BE_ART_NAME: 'backend'
-  
+
   GITHUB_SHA: ${{ github.sha }}
   GITHUB_REF: ${{ github.ref }}
 
@@ -156,7 +156,7 @@ jobs:
           tags: |
             bskjon/display:latest
             bskjon/display:${{ github.sha }}
-            bskjon/display:${{ github.ref }}
+            bskjon/display:$(basename ${{ github.ref }})
           dockerfile: ./Dockerfile
 
           
