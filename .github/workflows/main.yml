@@ -27,32 +27,10 @@ env:
   GITHUB_REF: ${{ github.ref }}
 
   DOCKER_IMAGE_NAME: "bskjon/display"
-  DOCKER_IMAGE_TAGS: ""
   
 
 
 jobs:
-  tagging:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set tags
-        run: |
-          tags=()
-          tags+=("${{ env.DOCKER_IMAGE_NAME }}:latest")
-          tags+=("${{ env.DOCKER_IMAGE_NAME }}:$(echo ${{ github.sha }} | cut -c1-7)")
-          tags+=("${{ env.DOCKER_IMAGE_NAME }}:$(basename ${{ github.ref }})")
-
-          echo "::set-env name=DOCKER_IMAGE_TAGS::${tags[*]}"
-
-      - name: Print tags
-        run: |
-          echo "Tags:"
-          for tag in ${{ env.TAGS }}; do
-            echo "- $tag"
-          done
-
-
-
   frontend:
     runs-on: ubuntu-latest
     steps:
@@ -146,6 +124,16 @@ jobs:
     needs: [tagging, frontend, backend]
 
     steps:
+
+      - name: Set tags
+        run: |
+          tags=()
+          tags+=("${{ env.DOCKER_IMAGE_NAME }}:latest")
+          tags+=("${{ env.DOCKER_IMAGE_NAME }}:$(echo ${{ github.sha }} | cut -c1-7)")
+          tags+=("${{ env.DOCKER_IMAGE_NAME }}:$(basename ${{ github.ref }})")
+
+          echo "TAGS=${tags[*]}" >> $GITHUB_ENV
+
       - name: Print tags
         run: |
           echo "Tags:"
