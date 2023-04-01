@@ -50,7 +50,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.1
       with:
         name: ${{ env.FE_ART_NAME }}
-        path: ${{ env.FE_DIR }}/dist/display
+        path: ${{ env.FE_DIR }}/build
         if-no-files-found: error
 
 
