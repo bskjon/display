@@ -22,6 +22,9 @@ env:
   FE_ART_NAME: 'frontend'
   BE_DIR: 'backend'
   BE_ART_NAME: 'backend'
+  
+  GITHUB_SHA: ${{ github.sha }}
+  GITHUB_REF: ${{ github.ref }}
 
 
 jobs:
