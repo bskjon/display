@@ -16,16 +16,19 @@ root.render(
     <Provider store={store}>
         <StompSessionProvider url={wsUrl} connectHeaders={{}} logRawCommunication={true}
         debug={(str) => {
+          if (str === "Opening Web Socket...") {
+            console.log(`Url is ${wsUrl}`)
+          }
           console.log(str);
         }}
         onUnhandledMessage={(val) => {
-          console.log(val)
+         // console.log(val)
         }}
         onStompError={(val) => {
-          console.log(val)
+         // console.log(val)
         }}
         onChangeState={(val) => {
-          console.log(val)
+        //  console.log(val)
         }}
   
         >
