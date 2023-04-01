@@ -1,4 +1,4 @@
-FROM openjdk:18-jdk-alpine
+FROM openjdk:8-jdk-buster
 
 EXPOSE 8080
 
