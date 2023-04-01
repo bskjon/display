@@ -26,7 +26,7 @@ env:
   GITHUB_SHA: ${{ github.sha }}
   GITHUB_REF: ${{ github.ref }}
 
-  IMAGE_NAME: bskjon/display
+  IMAGE_NAME: 'bskjon/display'
 
 
 jobs:
@@ -128,7 +128,7 @@ jobs:
         run: |
           tags=()
           tags+=("${{ env.IMAGE_NAME }}:latest")
-          tags+=("${{ env.IMAGE_NAME }}:${{ github.sha }}")
+          tags+=("${{ env.IMAGE_NAME }}:${{ github.sha | short }}")
           tags+=("${{ env.IMAGE_NAME }}:$(basename ${{ github.ref }})")
 
           echo "::set-output name=tags::${tags[*]}"

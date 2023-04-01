@@ -32,6 +32,5 @@ The docker image is multiarchitecture created, so it should work on traditional 
 
 ## Ports
 ```text
-Webserver:  80
-Websocket:  5000
+Webserver:  8080
 ```
