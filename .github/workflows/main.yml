@@ -84,13 +84,22 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
 
     - name: Set executable permission on gradlew
-      run: chmod +x ./gradlew
+      run: |
+        pwd
+        ls
+        chmod +x ./gradlew
 
     - name: Initialize Gradle wrapper
-      run: ./gradlew wrapper
+      run: |
+        pwd
+        ls
+        ./gradlew wrapper
 
     - name: Gradle Build
-      run: ./gradlew build
+      run: |
+        pwd
+        ls
+        ./gradlew build
       
     - name: Upload Backend Build Artifact
       uses: actions/upload-artifact@v3.1.1
