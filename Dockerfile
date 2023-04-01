@@ -1,16 +1,8 @@
-FROM bskjon/dnj:latest
-
-ARG TARGETARCH
-
-COPY dist/display/ /usr/share/nginx/html
-COPY backend.jar /usr/share/
-
-
-# Copy Angular nginx config
-COPY nginx.conf /etc/nginx/nginx.conf
-
-
-ENV AM_I_IN_A_DOCKER_CONTAINER True
+FROM openjdk:18-jdk-alpine
 
 EXPOSE 8080
-EXPOSE 80
+
+#COPY ./subby /usr/local/bin/subby
+COPY ./package/backend.jar display.jar
+
+ENTRYPOINT [ "java", "-jar", "/display.jar" ]
