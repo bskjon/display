@@ -58,7 +58,7 @@ export function Popup() {
           clearTimeout(timer);
         };
       }
-    }, [popupVisible]);
+    }, [popupVisible, showTemperature, showHumidity, showCo2]);
 
     
   return (
