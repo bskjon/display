@@ -85,7 +85,9 @@ jobs:
 
     - name: Check Gradle
       working-directory: ${{ env.BE_DIR }}
-      run: ls ${{ env.BE_DIR }}
+      run: |
+        pwd
+        ls ${{ env.BE_DIR }}
 
     - name: Execute Gradle
       working-directory: ${{ env.BE_DIR }}
