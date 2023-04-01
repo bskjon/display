@@ -1,13 +1,10 @@
 #!/bin/sh
 # vim:sw=4:ts=4:et
 
-if [ -z "${HOST_IP}" ]; then
-    IP=$(python3 /usr/share/socket/IP.py)
-    echo "Host@$IP"
-    export HOST_IP=$IP
-else
-  echo "Host ip is already defined.."
-fi
+for var in $(env | grep '^APP_' | cut -d '=' -f1); do
+    new_var=$(echo "$var" | sed 's/^APP_/REACT_APP_/')
+    export "$new_var=${!var}"
+done
 
 
 set -e
