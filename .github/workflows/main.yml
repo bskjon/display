@@ -125,19 +125,19 @@ jobs:
 
     steps:
 
-      - name: Set tags
+      - name: Tagging
         run: |
-          tags=()
-          tags+=("${{ env.DOCKER_IMAGE_NAME }}:latest")
-          tags+=("${{ env.DOCKER_IMAGE_NAME }}:$(echo ${{ github.sha }} | cut -c1-7)")
-          tags+=("${{ env.DOCKER_IMAGE_NAME }}:$(basename ${{ github.ref }})")
+          image_tag=()
+          image_tag+=("${{ env.DOCKER_IMAGE_NAME }}:latest")
+          image_tag+=("${{ env.DOCKER_IMAGE_NAME }}:$(echo ${{ github.sha }} | cut -c1-7)")
+          image_tag+=("${{ env.DOCKER_IMAGE_NAME }}:$(basename ${{ github.ref }})")
 
-          echo "TAGS=${tags[*]}" >> $GITHUB_ENV
+          echo "IMAGE_TAGS=${image_tag[*]}" >> $GITHUB_ENV
 
       - name: Print tags
         run: |
           echo "Tags:"
-          for tag in ${{ env.TAGS }}; do
+          for tag in ${{ env.IMAGE_TAGS }}; do
             echo "- $tag"
           done
 
@@ -173,7 +173,7 @@ jobs:
           context: .
           push: true
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-          tags: ${{ env.TAGS }}
+          tags: ${{ env.IMAGE_TAGS }}
           dockerfile: ./Dockerfile
 
           
