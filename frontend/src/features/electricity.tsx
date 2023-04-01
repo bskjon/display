@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import ReactApexChart from "react-apexcharts"
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";

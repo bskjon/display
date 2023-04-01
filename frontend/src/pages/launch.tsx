@@ -1,5 +1,5 @@
 import QRCode from 'qrcode.react';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useStompClient } from 'react-stomp-hooks';
 import { RootState } from '../app/store';

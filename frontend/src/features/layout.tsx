@@ -1,4 +1,4 @@
-import { Layout, LayoutRow, Views } from "../app/dto/configuration.dto";
+import { Layout, Views } from "../app/dto/configuration.dto";
 import Warning from "../components/warning";
 import { ElectricityMeterGraphComponent, ElectricityPriceBlock, ElectricityPriceGraphComponent } from "./electricity";
 import { WattageCounter } from "./wattageCounter";

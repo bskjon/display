@@ -1,5 +1,4 @@
-import { ApexOptions } from "apexcharts";
-import { ElectricityPrice, ElectricityPriceNow } from "../app/dto/electricity.dto";
+import { ElectricityPriceNow } from "../app/dto/electricity.dto";
 
 export interface DatedNumberValue {
     at: number

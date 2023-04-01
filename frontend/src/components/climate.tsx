@@ -1,11 +1,9 @@
-import  Icon from "@mui/material/Icon"
-import AcUnitIcon from '@mui/icons-material/AcUnit';
-import { display, positions } from "@mui/system";
+import Icon from "@mui/material/Icon"
 import React from "react";
 import tinycolor from 'tinycolor2';
 
 
-export interface Icon {
+export interface IconProps {
     icon: any,
     color: string,
     size: string
@@ -19,7 +17,7 @@ export interface Value {
 
 export interface ClimateProps {
     title?: string,
-    icon: Icon,
+    icon: IconProps,
     data?: Value
 
 }

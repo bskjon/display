@@ -1,6 +1,5 @@
 import * as Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
-import { useEffect } from 'react';
 
 export class WebSocketClient {
     private stompClient: Stomp.Client | undefined;

@@ -1,4 +1,3 @@
-import { ElectricityPrice } from "../dto/electricity.dto";
 import { Wattage } from "../dto/wattage.dto";
 import { useWsSubscription } from "../ws";
 

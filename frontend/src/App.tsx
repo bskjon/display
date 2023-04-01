@@ -4,7 +4,7 @@ import { updateWattage } from './app/stores/wattage-slice';
 import { RootState } from './app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import LayoutComponent from './features/layout';
-import { Layout, Views } from './app/dto/configuration.dto';
+import { Layout } from './app/dto/configuration.dto';
 import { useStompClient, useSubscription } from 'react-stomp-hooks';
 import { Button } from '@mui/material';
 import { Popup } from './features/popup';
