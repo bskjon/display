@@ -143,13 +143,15 @@ jobs:
     if: ${{ always() && needs.frontend.result == 'success' && needs.backend.result == 'success' }}
     needs: [tagging, frontend, backend]
 
+    steps:
       - name: Print tags
         run: |
           echo "Tags:"
           for tag in ${{ env.TAGS }}; do
             echo "- $tag"
           done
-   
+
+
       - name: Log in to Docker Hub
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
