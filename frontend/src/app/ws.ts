@@ -1,6 +1,8 @@
 import { IMessage } from "@stomp/stompjs/esm6";
 import { useSubscription } from "react-stomp-hooks";
+import dotenv from 'dotenv';
 
+dotenv.config();
 const deploymentPort = process.env.DEPLOYMENT_PORT || "8080";
 export const wsUrl = `http://localhost:${deploymentPort}/ws`
 

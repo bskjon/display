@@ -5,9 +5,11 @@ import { useStompClient } from 'react-stomp-hooks';
 import { RootState } from '../app/store';
 import ProjectLogo from '../assets/logo.svg'
 import ConsoleLog from '../features/console';
+import dotenv from 'dotenv'
 
 
 export default function LaunchPage() {
+  dotenv.config();
   const debug = process.env.DEBUG || false;
 
     const ip = useSelector((state: RootState) => state.configuration.ip);
