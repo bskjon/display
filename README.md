@@ -1,6 +1,6 @@
 # 🚧 Work in progress
 
-<img src="Web/src/assets/display.svg" style="height: 250px;" />
+<img src=".static-assets/display.svg" style="height: 250px;" />
 
 
 ## What is "Display"
