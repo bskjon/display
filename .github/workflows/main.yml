@@ -128,7 +128,7 @@ jobs:
         run: |
           tags=()
           tags+=("${{ env.IMAGE_NAME }}:latest")
-          tags+=("${{ env.IMAGE_NAME }}:${{ github.sha | short }}")
+          tags+=("${{ env.IMAGE_NAME }}:$(echo ${{ github.sha }} | cut -c1-7)")
           tags+=("${{ env.IMAGE_NAME }}:$(basename ${{ github.ref }})")
 
           echo "::set-output name=tags::${tags[*]}"
