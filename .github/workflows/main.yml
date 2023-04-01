@@ -133,6 +133,13 @@ jobs:
 
           echo "::set-output name=tags::${tags[*]}"
 
+      - name: Print tags
+        run: |
+          echo "Tags:"
+          for tag in ${{ steps.set_tags.outputs.tags }}; do
+            echo "- $tag"
+          done
+
 
       - name: Log in to Docker Hub
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
