@@ -121,7 +121,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     if: ${{ always() && needs.frontend.result == 'success' && needs.backend.result == 'success' }}
-    needs: [tagging, frontend, backend]
+    needs: [frontend, backend]
 
     steps:
 
