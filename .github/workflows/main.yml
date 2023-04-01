@@ -129,9 +129,8 @@ jobs:
           tags=()
           tags+=("${{ env.IMAGE_NAME }}:latest")
           tags+=("${{ env.IMAGE_NAME }}:${{ github.sha }}")
-          if [[ "${{ github.ref }}" == "refs/tags/"* ]]; then
-            tags+=("${{ env.IMAGE_NAME }}:${{ github.ref/refs\\/tags\\/// }}")
-          fi
+          tags+=("${{ env.IMAGE_NAME }}:${{ basename ${{ github.ref }} }}")
+
           echo "::set-output name=tags::${tags[*]}"
 
 
