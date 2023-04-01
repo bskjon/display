@@ -30,6 +30,28 @@ env:
 
 
 jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set tags
+        id: set_tags
+        run: |
+          tags=()
+          tags+=("${{ env.IMAGE_NAME }}:latest")
+          tags+=("${{ env.IMAGE_NAME }}:$(echo ${{ github.sha }} | cut -c1-7)")
+          tags+=("${{ env.IMAGE_NAME }}:$(basename ${{ github.ref }})")
+
+          echo "::set-output name=tags::${tags[*]}"
+
+      - name: Print tags
+        run: |
+          echo "${{ env.IMAGE_NAME }}"
+          echo "Tags:"
+          for tag in ${{ steps.set_tags.outputs.tags }}; do
+            echo "- $tag"
+          done
+
+
   frontend:
     runs-on: ubuntu-latest
     steps:
@@ -135,6 +157,7 @@ jobs:
 
       - name: Print tags
         run: |
+          echo ${{ env.IMAGE_NAME }}
           echo "Tags:"
           for tag in ${{ steps.set_tags.outputs.tags }}; do
             echo "- $tag"
