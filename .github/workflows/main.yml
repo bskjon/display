@@ -84,7 +84,6 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
 
     - name: Check Gradle
-      working-directory: ${{ env.BE_DIR }}
       run: |
         pwd
         ls ${{ env.BE_DIR }}
