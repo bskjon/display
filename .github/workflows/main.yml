@@ -97,8 +97,9 @@ jobs:
 
   docker:
     runs-on: ubuntu-latest
-    if: ${{ always() }}
+    if: ${{ always() && needs.frontend.result == 'success' && needs.backend.result == 'success' }}
     needs: [frontend, backend]
+
     
     steps:
       - name: Log in to Docker Hub
