@@ -4,9 +4,12 @@ import { useSelector } from 'react-redux';
 import { useStompClient } from 'react-stomp-hooks';
 import { RootState } from '../app/store';
 import ProjectLogo from '../assets/logo.svg'
+import ConsoleLog from '../features/console';
 
 
 export default function LaunchPage() {
+  const debug = process.env.DEBUG || false;
+
     const ip = useSelector((state: RootState) => state.configuration.ip);
 
     const client = useStompClient()
@@ -15,8 +18,6 @@ export default function LaunchPage() {
     useEffect(() => {
         console.log(`IP value ${ip}`);
         const fetchIp = () => {
-          console.log("Calling on publish");
-          console.log(client);
           if (client?.connected) {
             client?.publish({destination: "/app/configuration/ip"});
           } else {
@@ -25,7 +26,6 @@ export default function LaunchPage() {
         };
       
         const recursiveTimeout = () => {
-          console.log("Timer called");
           fetchIp();
           setTimeout(recursiveTimeout, delay);
         };
@@ -69,8 +69,20 @@ export default function LaunchPage() {
                 }} src={ProjectLogo} alt="logo" />
             </div>
             <p>{ip ? ip : "Offline"}</p>
-        </div>
 
+            { debug && 
+              <div style={{ 
+                display: "block",
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                width: "100vw",
+                height: "100vh"
+               }}><ConsoleLog /></div>
+            }
+        </div>
     )
 }
 
