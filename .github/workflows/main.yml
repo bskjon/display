@@ -26,7 +26,9 @@ env:
   GITHUB_SHA: ${{ github.sha }}
   GITHUB_REF: ${{ github.ref }}
 
-  IMAGE_NAME: "bskjon/display"
+  DOCKER_IMAGE_NAME: "bskjon/display"
+  DOCKER_IMAGE_TAGS: ""
+  
 
 
 jobs:
@@ -36,11 +38,11 @@ jobs:
       - name: Set tags
         run: |
           tags=()
-          tags+=("${{ env.IMAGE_NAME }}:latest")
-          tags+=("${{ env.IMAGE_NAME }}:$(echo ${{ github.sha }} | cut -c1-7)")
-          tags+=("${{ env.IMAGE_NAME }}:$(basename ${{ github.ref }})")
+          tags+=("${{ env.DOCKER_IMAGE_NAME }}:latest")
+          tags+=("${{ env.DOCKER_IMAGE_NAME }}:$(echo ${{ github.sha }} | cut -c1-7)")
+          tags+=("${{ env.DOCKER_IMAGE_NAME }}:$(basename ${{ github.ref }})")
 
-          echo "TAGS=${tags[*]}" >> $GITHUB_ENV
+          echo "::set-env name=DOCKER_IMAGE_TAGS::${tags[*]}"
 
       - name: Print tags
         run: |
