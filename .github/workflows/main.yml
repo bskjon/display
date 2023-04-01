@@ -50,7 +50,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.1
       with:
         name: ${{ env.FE_ART_NAME }}
-        path: ${{ env.FE_DIR }}/build
+        path: ${{ env.FE_DIR }}/build*
         if-no-files-found: error
 
 
@@ -65,7 +65,7 @@ jobs:
       uses: actions/download-artifact@v3.0.1
       with:
         name: ${{ env.FE_ART_NAME }}
-        path: ./static # download the artifact directly into the static folder
+        path: ${{ env.BE_DIR }}/src/main/resources/static/ # download the artifact directly into the static folder
 
     - name: Use cached Gradle dependencies
       uses: actions/cache@v2
@@ -84,7 +84,7 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
 
     - name: Execute Gradle
-      working-directory: ./${{ env.BE_DIR }}
+      working-directory: ${{ env.BE_DIR }}
       run: ./gradlew build
       
     - name: Upload Backend Build Artifact
