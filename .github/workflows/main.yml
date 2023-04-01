@@ -34,22 +34,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set tags
-        id: set_tags
         run: |
           tags=()
           tags+=("${{ env.IMAGE_NAME }}:latest")
           tags+=("${{ env.IMAGE_NAME }}:$(echo ${{ github.sha }} | cut -c1-7)")
           tags+=("${{ env.IMAGE_NAME }}:$(basename ${{ github.ref }})")
 
-          echo "::set-output name=tags::${tags[*]}"
+          echo "TAGS=${tags[*]}" >> $GITHUB_ENV
 
       - name: Print tags
         run: |
-          echo "${{ env.IMAGE_NAME }}"
           echo "Tags:"
-          for tag in ${{ steps.set_tags.outputs.tags }}; do
+          for tag in ${{ env.TAGS }}; do
             echo "- $tag"
           done
+
 
 
   frontend:
@@ -195,7 +194,7 @@ jobs:
           context: .
           push: true
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-          tags: ${{ steps.set_tags.outputs.tags }}
+          tags: ${{ env.TAGS }}
           dockerfile: ./Dockerfile
 
           
