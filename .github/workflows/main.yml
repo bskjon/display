@@ -128,7 +128,7 @@ jobs:
       - name: Tagging
         run: |
           image_tag=()
-          image_tag+=("${{ env.DOCKER_IMAGE_NAME }}:latest")
+          image_tag+=("bskjon/display:latest")
           image_tag+=("${{ env.DOCKER_IMAGE_NAME }}:$(echo ${{ github.sha }} | cut -c1-7)")
           image_tag+=("${{ env.DOCKER_IMAGE_NAME }}:$(basename ${{ github.ref }})")
 
