@@ -153,7 +153,7 @@ jobs:
           ls -la ./
         shell: bash
       
-      - name: Build and publish Docker image
+      - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -163,5 +163,5 @@ jobs:
             bskjon/display:${{ env.IMAGE_TAG_SHA }}
             bskjon/display:${{ env.IMAGE_TAG_REF }}
           dockerfile: ./Dockerfile
-
-          
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          push-args: "--platform linux/amd64,linux/arm64,linux/arm/v7"
