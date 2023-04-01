@@ -73,6 +73,11 @@ jobs:
         name: ${{ env.FE_ART_NAME }}
         path: ${{ env.BE_DIR }}/src/main/resources/static/ # download the artifact directly into the static folder
 
+    - name: Run LS
+      run: |
+        ls -la ${{ env.BE_DIR }}/src/main/resources/static/
+      shell: bash
+
     - name: Use cached Gradle dependencies
       uses: actions/cache@v2
       with:

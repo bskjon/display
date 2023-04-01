@@ -1,7 +1,8 @@
 import { IMessage } from "@stomp/stompjs/esm6";
 import { useSubscription } from "react-stomp-hooks";
 
-export const wsUrl = "http://localhost:8080/ws"
+const deploymentPort = process.env.DEPLOYMENT_PORT || "8080";
+export const wsUrl = `http://localhost:${deploymentPort}/ws`
 
 export function useWsSubscription<T>(path: string, processData: (data: T) => void,
 ) {

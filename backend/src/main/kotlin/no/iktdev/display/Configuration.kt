@@ -1,5 +1,9 @@
 package no.iktdev.display
 
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory
+import org.springframework.boot.web.server.WebServerFactoryCustomizer
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.messaging.simp.config.MessageBrokerRegistry
 import org.springframework.web.bind.annotation.RestController
@@ -8,10 +12,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
-import org.springframework.web.socket.WebSocketHandler
 import org.springframework.web.socket.config.annotation.*
-import org.springframework.web.socket.handler.WebSocketHandlerDecoratorFactory
-import java.time.Duration
+
 
 class Configuration {
     companion object {
@@ -38,7 +40,20 @@ class WebConfig: WebMvcConfigurer {
             .addResourceLocations("classpath:/static/")
             .setCachePeriod(0)
     }
+
+    @Value("\${DEPLOYMENT_PORT:8080}")
+    private val deploymentPort = 8080
+
+    @Bean
+    fun webServerFactoryCustomizer(): WebServerFactoryCustomizer<TomcatServletWebServerFactory>? {
+        return WebServerFactoryCustomizer { factory: TomcatServletWebServerFactory ->
+            factory.port = deploymentPort
+        }
+    }
 }
+
+
+
 
 
 @Configuration
