@@ -26,6 +26,8 @@ env:
   GITHUB_SHA: ${{ github.sha }}
   GITHUB_REF: ${{ github.ref }}
 
+  IMAGE_NAME: bskjon/display
+
 
 jobs:
   frontend:
@@ -121,11 +123,16 @@ jobs:
     needs: [frontend, backend]
 
     steps:
-      - name: Print environment variables
-        run: |
-          echo "GitHub sha: ${{ github.sha }}"
-          echo "GitHub ref: ${{ github.ref }}"
-          echo "GitHub ref based: $(basename ${{ github.ref }})"
+      - name: Set tags
+          id: set_tags
+          run: |
+            tags=()
+            tags+=("${{ env.IMAGE_NAME }}:latest")
+            tags+=("${{ env.IMAGE_NAME }}:${{ github.sha }}")
+            if [[ "${{ github.ref }}" == "refs/tags/"* ]]; then
+              tags+=("${{ env.IMAGE_NAME }}:${{ github.ref/refs\/tags\// }}")
+            fi
+            echo "::set-output name=tags::${tags[*]}"
 
 
       - name: Log in to Docker Hub
@@ -159,10 +166,7 @@ jobs:
           context: .
           push: true
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-          tags: |
-            bskjon/display:latest
-            bskjon/display:${{ github.sha }}
-            bskjon/display:$(basename ${{ github.ref }})
+          tags: ${{ steps.set_tags.outputs.tags }}
           dockerfile: ./Dockerfile
 
           
