@@ -30,7 +30,7 @@ env:
 
 
 jobs:
-  validate:
+  tagging:
     runs-on: ubuntu-latest
     steps:
       - name: Set tags
@@ -141,28 +141,15 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     if: ${{ always() && needs.frontend.result == 'success' && needs.backend.result == 'success' }}
-    needs: [frontend, backend]
-
-    steps:
-      - name: Set tags
-        id: set_tags
-        run: |
-          tags=()
-          tags+=("${{ env.IMAGE_NAME }}:latest")
-          tags+=("${{ env.IMAGE_NAME }}:$(echo ${{ github.sha }} | cut -c1-7)")
-          tags+=("${{ env.IMAGE_NAME }}:$(basename ${{ github.ref }})")
-
-          echo "::set-output name=tags::${tags[*]}"
+    needs: [tagging, frontend, backend]
 
       - name: Print tags
         run: |
-          echo ${{ env.IMAGE_NAME }}
           echo "Tags:"
-          for tag in ${{ steps.set_tags.outputs.tags }}; do
+          for tag in ${{ env.TAGS }}; do
             echo "- $tag"
           done
-
-
+   
       - name: Log in to Docker Hub
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
