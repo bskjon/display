@@ -84,18 +84,21 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
 
     - name: Set executable permission on gradlew
+      working-directory: ${{ env.BE_DIR }}
       run: |
         pwd
         ls
         chmod +x ./gradlew
 
     - name: Initialize Gradle wrapper
+      working-directory: ${{ env.BE_DIR }}
       run: |
         pwd
         ls
         ./gradlew wrapper
 
     - name: Gradle Build
+      working-directory: ${{ env.BE_DIR }}
       run: |
         pwd
         ls
@@ -105,7 +108,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.1
       with: 
         name: ${{ env.BE_ART_NAME }}
-        path: ./${{ env.BE_DIR }}/build/libs/backend.jar
+        path: ${{ env.BE_DIR }}/build/libs/backend.jar
         if-no-files-found: error
         
 
