@@ -127,20 +127,11 @@ jobs:
 
       - name: Tagging
         run: |
-          image_tag=()
-          image_tag+=("bskjon/display:latest")
-          image_tag+=("${{ env.DOCKER_IMAGE_NAME }}:$(echo ${{ github.sha }} | cut -c1-7)")
-          image_tag+=("${{ env.DOCKER_IMAGE_NAME }}:$(basename ${{ github.ref }})")
+          image_tag_sha="$(echo ${{ github.sha }} | cut -c1-7)"
+          image_tag_ref="$(basename ${{ github.ref }})"
 
-          echo "IMAGE_TAGS=${image_tag[*]}" >> $GITHUB_ENV
-
-      - name: Print tags
-        run: |
-          echo "Tags:"
-          for tag in ${{ env.IMAGE_TAGS }}; do
-            echo "- $tag"
-          done
-
+          echo "IMAGE_TAG_SHA=$image_tag_sha" >> $GITHUB_ENV
+          echo "IMAGE_TAG_REF=$image_tag_ref" >> $GITHUB_ENV
 
       - name: Log in to Docker Hub
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -173,7 +164,10 @@ jobs:
           context: .
           push: true
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-          tags: ${{ env.IMAGE_TAGS }}
+          tags: |
+            bskjon/display:latest
+            bskjon/display:${{ env.IMAGE_TAG_SHA }}
+            bskjon/display:${{ env.IMAGE_TAG_REF }}
           dockerfile: ./Dockerfile
 
           
