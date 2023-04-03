@@ -6,7 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import { StompSessionProvider } from 'react-stomp-hooks';
-import { getCheckUrl, wsUrl } from './app/ws';
+import { wsUrl } from './app/ws';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -18,7 +18,6 @@ root.render(
         debug={(str) => {
           if (str === "Opening Web Socket...") {
             console.log(`Url is ${wsUrl}`)
-            console.log(getCheckUrl());
           }
           console.log(str);
         }}
