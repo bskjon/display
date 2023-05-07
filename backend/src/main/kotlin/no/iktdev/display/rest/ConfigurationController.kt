@@ -1,5 +1,6 @@
 package no.iktdev.display.rest
 
+import no.iktdev.display.getViewsFile
 import no.iktdev.display.model.homeassistant.Configuration
 import no.iktdev.display.model.homeassistant.climate.Co2
 import no.iktdev.display.model.homeassistant.climate.Humidity
@@ -19,10 +20,11 @@ class ConfigurationController(private val observerService: ObserverService) {
 
     @PostMapping("/layout")
     fun onLayout(@RequestBody payload: Configuration.Layout?) {
-
         if (payload == null)
             return
         observerService.layout.set(payload)
+        //val layoutFile = getViewsFile()
+
     }
 
 }

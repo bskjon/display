@@ -17,12 +17,12 @@ import org.springframework.stereotype.Controller
 @Controller
 class ConfigurationTopic(
     @Autowired private val template: SimpMessagingTemplate,
-    private val observer: ObserverService
+    val observer: ObserverService
 ) {
 
-    private val layoutListener = object : ObservableList.Listener<Configuration.Layout> {
+    val layoutListener = object : ObservableList.Listener<Configuration.Layout> {
         override fun onChanged(item: Configuration.Layout) {
-            template.convertAndSend("/topic/configuration/layout", item)
+            pushLayout(item)
         }
 
         override fun onListChanged(items: List<Configuration.Layout>) {
@@ -41,6 +41,9 @@ class ConfigurationTopic(
         observer.ip.addListener(ipListener)
     }
 
+    fun pushLayout(item: Configuration.Layout) {
+        template.convertAndSend("/topic/configuration/layout", item)
+    }
 
     @MessageMapping("/configuration/ip")
     fun handleIpRequest() {
