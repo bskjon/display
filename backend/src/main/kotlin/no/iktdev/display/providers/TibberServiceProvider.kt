@@ -32,7 +32,7 @@ class TibberServiceProvider: ServiceProvider() {
 
             override fun onMeasurementRetry(attempt: Long, throwable: Throwable?) {
                 super.onMeasurementRetry(attempt, throwable)
-                Logger.error(this::class.java, "Retry $attempt")
+                Logger.error(this@TibberServiceProvider::class.java, "Retry $attempt")
             }
 
         }

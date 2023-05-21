@@ -20,6 +20,7 @@ export default function LaunchPage() {
         const fetchIp = () => {
           if (client?.connected) {
             client?.publish({destination: "/app/configuration/ip"});
+            client?.publish({destination: "/app/load"})
           } else {
             console.warn("Not connected to socket..");
           }
@@ -37,11 +38,6 @@ export default function LaunchPage() {
         };
       }, [ip, client, delay]);
       
-      
-    client?.publish({destination: "/app/load"})
-      
-    
-
 
     return(
         <div style={{

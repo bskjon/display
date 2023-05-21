@@ -15,7 +15,7 @@ class ElectricityTopic(
 
     private val liveWattListener = object : ObservableList.Listener<Wattage> {
         override fun onChanged(item: Wattage) {
-            template?.convertAndSend("/topic/electricity/consumption/live")
+            template?.convertAndSend("/topic/electricity/consumption/live", item)
         }
 
         override fun onListChanged(items: List<Wattage>) {
