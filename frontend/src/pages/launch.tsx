@@ -38,7 +38,7 @@ export default function LaunchPage() {
       }, [ip, client, delay]);
       
       
-      
+    client?.publish({destination: "/app/load"})
       
     
 

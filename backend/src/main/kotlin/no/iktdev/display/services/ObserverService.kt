@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service
 @Service
 class ObserverService {
 
-    val layout: ObservableList<Configuration.Layout> = ObservableList()
+    val layout: ObservableValue<Configuration.Layout> = ObservableValue()
     val ip: ObservableValue<String> = ObservableValue()
 
     val temperature: ObservableList<Temperature> = ObservableList()

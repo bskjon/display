@@ -20,13 +20,9 @@ class ConfigurationTopic(
     val observer: ObserverService
 ) {
 
-    val layoutListener = object : ObservableList.Listener<Configuration.Layout> {
-        override fun onChanged(item: Configuration.Layout) {
-            pushLayout(item)
-        }
-
-        override fun onListChanged(items: List<Configuration.Layout>) {
-            items.forEach { onChanged(it) }
+    val layoutListener = object : ObservableValue.ValueListener<Configuration.Layout> {
+        override fun onUpdated(value: Configuration.Layout) {
+            pushLayout(value)
         }
     }
 
@@ -54,6 +50,13 @@ class ConfigurationTopic(
             template.convertAndSend("/topic/configuration/offline", false)
             observer.ip.next(ip)
 
+        }
+    }
+
+    @MessageMapping("/load")
+    fun load() {
+        observer.layout.value?.let { layout ->
+            pushLayout(layout)
         }
     }
 
