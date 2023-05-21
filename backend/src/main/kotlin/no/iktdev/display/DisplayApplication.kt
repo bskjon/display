@@ -1,31 +1,15 @@
 package no.iktdev.display
 
-import com.google.gson.Gson
-import no.iktdev.display.helper.*
-import no.iktdev.display.helper.ObservableList.Listener
+import no.iktdev.display.helper.FilePath
+import no.iktdev.display.helper.ObservableValue
+import no.iktdev.display.helper.Reader
 import no.iktdev.display.instance.Networking
-
 import no.iktdev.display.modelss.View
-import no.iktdev.display.rest.ConfigurationController
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.actuate.health.Health
-import org.springframework.boot.actuate.health.HealthIndicator
-
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.ApplicationContext
-import org.springframework.context.annotation.ComponentScan
-import org.springframework.context.annotation.Configuration
-import org.springframework.messaging.simp.config.MessageBrokerRegistry
-import org.springframework.stereotype.Component
-import org.springframework.web.client.RestTemplate
-import org.springframework.web.socket.client.WebSocketClient
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker
-import org.springframework.web.socket.config.annotation.StompEndpointRegistry
-import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer
 import java.io.File
 import java.nio.file.Paths
-import javax.annotation.PostConstruct
 
 @SpringBootApplication
 class DisplayApplication
