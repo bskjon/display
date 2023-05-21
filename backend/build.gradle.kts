@@ -36,7 +36,7 @@ dependencies {
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 	implementation("no.iktdev.apis:Kibber:1.0-SNAPSHOT")
 
-	implementation("org.springframework.boot:spring-boot-starter-websocket")
+	//implementation("org.springframework.boot:spring-boot-starter-websocket")
 	implementation("org.springframework.boot:spring-boot-starter-websocket:2.6.3")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -45,6 +45,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.4")
 	testImplementation("org.springframework:spring-webflux:5.3.23")
 	testImplementation("org.springframework.graphql:spring-graphql-test:1.0.1")
+
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
 }
 
 

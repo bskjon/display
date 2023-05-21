@@ -1,11 +1,16 @@
 package no.iktdev.display
 
+import no.iktdev.display.rest.ConfigurationController
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.actuate.health.Health
+import org.springframework.boot.actuate.health.HealthIndicator
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory
 import org.springframework.boot.web.server.WebServerFactoryCustomizer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.messaging.simp.config.MessageBrokerRegistry
+import org.springframework.stereotype.Component
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.method.HandlerTypePredicate
 import org.springframework.web.servlet.config.annotation.CorsRegistry
@@ -69,5 +74,23 @@ class WebSocketConfig : WebSocketMessageBrokerConfigurer {
     override fun configureMessageBroker(registry: MessageBrokerRegistry) {
         registry.enableSimpleBroker("/topic")
         registry.setApplicationDestinationPrefixes("/app")
+    }
+}
+
+@Component
+class CustomHealthIndicator : HealthIndicator {
+
+    @Autowired(required = false)
+    private var restController: ConfigurationController? = null
+
+    @Autowired(required = false)
+    private var webSocketMessageBroker: EnableWebSocketMessageBroker? = null
+
+    override fun health(): Health {
+        return if (restController != null && webSocketMessageBroker != null) {
+            Health.up().build()
+        } else {
+            Health.down().build()
+        }
     }
 }
