@@ -22,7 +22,7 @@ class ConfigurationController(private val observerService: ObserverService) {
     fun onLayout(@RequestBody payload: Configuration.Layout?) {
         if (payload == null)
             return
-        observerService.layout.set(payload)
+        observerService.layout.next(payload)
         //val layoutFile = getViewsFile()
 
     }
