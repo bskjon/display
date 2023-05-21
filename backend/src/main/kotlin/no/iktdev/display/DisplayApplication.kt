@@ -43,6 +43,12 @@ fun getViewsFile(): File {
 var ip: String = "Unavailable"
 
 fun main(args: Array<String>) {
+	Coroutines.addListener(object : ObservableValue.ValueListener<Throwable> {
+		override fun onUpdated(value: Throwable) {
+			value.printStackTrace()
+		}
+
+	})
 	val storedViewFile = getViewsFile()
 	if (storedViewFile.exists()) {
 		try {

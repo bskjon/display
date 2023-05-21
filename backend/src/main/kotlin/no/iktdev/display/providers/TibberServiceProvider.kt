@@ -24,7 +24,7 @@ class TibberServiceProvider: ServiceProvider() {
             }
 
             override fun onMeasurementReceived(measurement: TibberPulseSubscription.LiveMeasurement) {
-                Logger.info(this::class.java, "Received measurement")
+                Logger.info(this@TibberServiceProvider::class.java, "Received measurement")
                 wattConsumption.next(
                     Wattage(id = "TIBBER", timestamp = measurement.timestamp, wattage = measurement.power)
                 )

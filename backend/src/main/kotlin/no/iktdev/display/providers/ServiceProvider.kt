@@ -1,14 +1,13 @@
 package no.iktdev.display.providers
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import no.iktdev.display.Coroutines
 import no.iktdev.display.helper.ObservableValue
 import no.iktdev.display.model.Wattage
 
 
 abstract class ServiceProvider {
-    val scope: CoroutineScope = CoroutineScope(Job() + Dispatchers.Default)
+    val scope: CoroutineScope = Coroutines().Coroutine()
     val wattConsumption: ObservableValue<Wattage?> = ObservableValue()
 
     protected abstract var start: () -> Unit
