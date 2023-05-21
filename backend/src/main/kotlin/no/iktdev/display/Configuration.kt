@@ -90,7 +90,12 @@ class CustomHealthIndicator : HealthIndicator {
         return if (restController != null && webSocketMessageBroker != null) {
             Health.up().build()
         } else {
-            Health.down().build()
+            Health.down()
+                .withDetails(mapOf(
+                    "Rest" to (restController != null),
+                    "Ws" to (webSocketMessageBroker != null)
+                ))
+                .build()
         }
     }
 }
