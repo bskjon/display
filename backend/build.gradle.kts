@@ -45,8 +45,6 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.4")
 	testImplementation("org.springframework:spring-webflux:5.3.23")
 	testImplementation("org.springframework.graphql:spring-graphql-test:1.0.1")
-
-	implementation("org.springframework.boot:spring-boot-starter-actuator")
 }
 
 

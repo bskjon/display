@@ -76,26 +76,3 @@ class WebSocketConfig : WebSocketMessageBrokerConfigurer {
         registry.setApplicationDestinationPrefixes("/app")
     }
 }
-
-@Component
-class CustomHealthIndicator : HealthIndicator {
-
-    @Autowired(required = false)
-    private var restController: ConfigurationController? = null
-
-    @Autowired(required = false)
-    private var webSocketMessageBroker: EnableWebSocketMessageBroker? = null
-
-    override fun health(): Health {
-        return if (restController != null && webSocketMessageBroker != null) {
-            Health.up().build()
-        } else {
-            Health.down()
-                .withDetails(mapOf(
-                    "Rest" to (restController != null),
-                    "Ws" to (webSocketMessageBroker != null)
-                ))
-                .build()
-        }
-    }
-}

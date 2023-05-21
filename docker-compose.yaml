@@ -11,10 +11,8 @@ services:
     environment:
       METER_PLATFORM: TIBBER
       METER_PLATFORM_TOKEN: <token>
-    volumes:
-      - ./data/zookeeper:/var/lib/zookeeper/
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
       interval: 10s
       timeout: 5s
       retries: 10

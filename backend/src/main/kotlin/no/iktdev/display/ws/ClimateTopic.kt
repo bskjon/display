@@ -10,11 +10,13 @@ import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Controller
 
 @Controller
-class ClimateTopic(@Autowired private val template: SimpMessagingTemplate, observer: ObserverService) {
+class ClimateTopic(
+    @Autowired private val template: SimpMessagingTemplate?,
+    private val observer: ObserverService) {
 
     private val temperatureListener = object : ObservableList.Listener<Temperature> {
         override fun onChanged(item: Temperature) {
-            template.convertAndSend("/topic/temperature", item)
+            template?.convertAndSend("/topic/temperature", item)
         }
 
         override fun onListChanged(items: List<Temperature>) {
@@ -24,7 +26,7 @@ class ClimateTopic(@Autowired private val template: SimpMessagingTemplate, obser
 
     private val humidityListener = object : ObservableList.Listener<Humidity> {
         override fun onChanged(item: Humidity) {
-            template.convertAndSend("/topic/humidity", item)
+            template?.convertAndSend("/topic/humidity", item)
         }
 
         override fun onListChanged(items: List<Humidity>) {
@@ -34,7 +36,7 @@ class ClimateTopic(@Autowired private val template: SimpMessagingTemplate, obser
 
     private val co2Listener = object : ObservableList.Listener<Co2> {
         override fun onChanged(item: Co2) {
-            template.convertAndSend("/topic/co2", item)
+            template?.convertAndSend("/topic/co2", item)
         }
 
         override fun onListChanged(items: List<Co2>) {

@@ -16,8 +16,8 @@ import org.springframework.stereotype.Controller
 
 @Controller
 class ConfigurationTopic(
-    @Autowired private val template: SimpMessagingTemplate,
-    val observer: ObserverService
+    @Autowired private val template: SimpMessagingTemplate?,
+    private final val observer: ObserverService
 ) {
 
     val layoutListener = object : ObservableValue.ValueListener<Configuration.Layout> {
@@ -28,7 +28,7 @@ class ConfigurationTopic(
 
     private val ipListener = object : ObservableValue.ValueListener<String> {
         override fun onUpdated(value: String) {
-            template.convertAndSend("/topic/configuration/ip", value)
+            template?.convertAndSend("/topic/configuration/ip", value)
         }
     }
 
@@ -38,16 +38,16 @@ class ConfigurationTopic(
     }
 
     fun pushLayout(item: Configuration.Layout) {
-        template.convertAndSend("/topic/configuration/layout", item)
+        template?.convertAndSend("/topic/configuration/layout", item)
     }
 
     @MessageMapping("/configuration/ip")
     fun handleIpRequest() {
         val ip = Networking().getNetworkCapable().firstOrNull()?.hostAddress
         if (ip == null) {
-            template.convertAndSend("/topic/configuration/offline", true)
+            template?.convertAndSend("/topic/configuration/offline", true)
         } else {
-            template.convertAndSend("/topic/configuration/offline", false)
+            template?.convertAndSend("/topic/configuration/offline", false)
             observer.ip.next(ip)
 
         }
