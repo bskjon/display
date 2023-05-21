@@ -10,7 +10,7 @@ services:
     network_mode: "host"
     environment:
       METER_PLATFORM: TIBBER
-      METER_PLATFORM_TOKEN: Hrhlrozgdgs7kPxbacu-AYEPeXAqrqe1XZToeDSpisE
+      METER_PLATFORM_TOKEN: <token>
     volumes:
       - ./data/zookeeper:/var/lib/zookeeper/
 
